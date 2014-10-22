@@ -9,12 +9,25 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="amigos.com.conexionarduino.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="amigos.com.conexionarduino.DropsetActivity"
+            android:label="@string/title_activity_dropset" >
+        </activity>
+        <activity
+            android:name="amigos.com.conexionarduino.PosNegActivity"
+            android:label="@string/title_activity_pos_neg" >
+        </activity>
+        <activity
+            android:name="amigos.com.conexionarduino.NegativeActivity"
+            android:label="@string/title_activity_negative" >
         </activity>
     </application>
 
