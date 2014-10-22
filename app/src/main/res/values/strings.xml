@@ -11,5 +11,6 @@
     <string name="title_activity_dropset">Dropset</string>
     <string name="title_activity_pos_neg">Positive / Negative</string>
     <string name="title_activity_negative">Negative</string>
+    <string name="title_select_excersise">SELECT EXCERSISE</string>
 
 </resources>
