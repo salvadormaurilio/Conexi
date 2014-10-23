@@ -10,7 +10,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
         android:paddingBottom="12dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
@@ -29,59 +28,80 @@
 
         <ListView
             android:id="@+id/listView"
+            android:layout_below="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textViewLoadedWeight"
-            android:layout_below="@id/textView"
+            android:layout_above="@+id/spaceCenter"
             android:layout_marginBottom="8dp"
             android:choiceMode="singleChoice" />
 
-
-        <TextView
-            android:id="@+id/textViewLoadedWeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@drawable/bac_title_selec_excer"
-            android:padding="12dp"
-            android:text="@string/title_loaded_weight"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white_grey"
-            android:textStyle="bold" />
-
-        <SeekBar
-            android:id="@+id/seekBarLoadedWeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewLoadedWeight"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:max="719" />
-
-
-        <TextView
+        <Space
+            android:id="@+id/spaceCenter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/min_loaded_weight"
-            android:layout_marginTop="8dp"
-            android:layout_alignLeft="@+id/seekBarLoadedWeight"
-            android:layout_marginLeft="8dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_below="@id/seekBarLoadedWeight"
-            tools:ignore="RtlHardcoded" />
+            android:layout_height="1dp"
+            android:layout_centerVertical="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/max_loaded_weight"
-            android:layout_marginTop="8dp"
-            android:layout_alignRight="@+id/seekBarLoadedWeight"
-            android:layout_marginRight="8dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_below="@id/seekBarLoadedWeight"
-            tools:ignore="RtlHardcoded" />
 
+        <ScrollView
+            android:layout_below="@+id/spaceCenter"
+            android:id="@+id/scrollViewLoadedWeight"
+            android:layout_width="match_parent"
+            android:layout_above="@+id/buttonStartEnd"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textViewLoadedWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bac_title_selec_excer"
+                    android:padding="12dp"
+                    android:text="@string/title_loaded_weight"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white_grey"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:id="@+id/seekBarLoadedWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewLoadedWeight"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:max="719" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/seekBarLoadedWeight"
+                    android:layout_below="@id/seekBarLoadedWeight"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/min_loaded_weight"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/seekBarLoadedWeight"
+                    android:layout_below="@id/seekBarLoadedWeight"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/max_loaded_weight"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    tools:ignore="RtlHardcoded" />
+
+            </RelativeLayout>
+
+
+        </ScrollView>
 
         <Button
             android:id="@+id/buttonStartEnd"
@@ -94,17 +114,6 @@
             android:textColor="@android:color/black"
             android:textSize="28sp"
             android:textStyle="bold" />
-
-
     </RelativeLayout>
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="2"-->
-    <!--android:paddingLeft="12dp"-->
-    <!--android:paddingRight="12dp">-->
-
-
-    <!--</RelativeLayout>-->
 </LinearLayout>
