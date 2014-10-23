@@ -19,15 +19,18 @@
         </activity>
         <activity
             android:name="amigos.com.conexionarduino.DropsetActivity"
-            android:label="@string/title_activity_dropset" >
+            android:label="@string/title_activity_dropset"
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name="amigos.com.conexionarduino.PosNegActivity"
-            android:label="@string/title_activity_pos_neg" >
+            android:label="@string/title_activity_pos_neg"
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name="amigos.com.conexionarduino.NegativeActivity"
-            android:label="@string/title_activity_negative" >
+            android:label="@string/title_activity_negative"
+            android:screenOrientation="landscape">
         </activity>
     </application>
 
