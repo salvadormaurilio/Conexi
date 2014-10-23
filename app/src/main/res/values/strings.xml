@@ -12,5 +12,11 @@
     <string name="title_activity_pos_neg">Positive / Negative</string>
     <string name="title_activity_negative">Negative</string>
     <string name="title_select_excersise">SELECT EXCERSISE</string>
+    <string name="title_loaded_weight">Enter Loaded Weight:</string>
+    <string name="min_loaded_weight">1</string>
+    <string name="max_loaded_weight">720</string>
+    <string name="btn_title_start">Start</string>
+    <string name="btn_title_exit">Exit</string>
+    <string name="select_excersise">Seleccione un Ejercicio</string>
 
 </resources>
