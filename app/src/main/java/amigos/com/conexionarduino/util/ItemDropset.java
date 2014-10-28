@@ -17,6 +17,10 @@ public class ItemDropset {
         return weight;
     }
 
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     public int getRepetitionsCounts() {
         return repetitionsCounts;
     }
@@ -24,4 +28,6 @@ public class ItemDropset {
     public void incrementRepetitionsCounts() {
         repetitionsCounts++;
     }
+
+
 }

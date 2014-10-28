@@ -22,7 +22,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     private Button buttonStartEnd;
     private boolean isStart;
     private int positionItem;
-    private int progress;
+    private int progressWeight;
     private String lb;
 
     private ListView listViewDropset;
@@ -32,11 +32,11 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     private View buttonIncreRep;
 
     private int positionItemCurrent;
-    private int progressCurrent;
+    private int progressWeightCurrent;
 
+    private boolean isListViewVisible;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dropset);
@@ -55,8 +55,8 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
         SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarLoadedWeight);
         seekBar.setOnSeekBarChangeListener(this);
-        progress = 1;
-        progressCurrent = 1;
+        progressWeight = 1;
+        progressWeightCurrent = 1;
 
         buttonStartEnd = (Button) findViewById(R.id.buttonStartEnd);
         buttonStartEnd.setOnClickListener(this);
@@ -70,6 +70,10 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
         listViewDropset = (ListView) findViewById(R.id.listViewDropset);
 
+        adapterExcersise = new AdapterExcersise(this, 1);
+        listViewDropset.setAdapter(adapterExcersise);
+
+        isListViewVisible = false;
 
     }
 
@@ -79,6 +83,10 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         listViewExcersise.setItemChecked(position, true);
         positionItem = position;
 
+        if (!isStart && adapterExcersise.getCount() > 1 && positionItem != positionItemCurrent) {
+            adapterExcersise.setNewWeight(progressWeight);
+        }
+
     }
 
     @Override
@@ -86,27 +94,24 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
         switch (v.getId()) {
             case R.id.buttonStartEnd:
-
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
                     buttonNextWeight.setVisibility(View.GONE);
                     buttonIncreRep.setVisibility(View.GONE);
+                    listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, false);
                     isStart = false;
                 } else {
                     if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
-                        isStart = true;
                         buttonNextWeight.setVisibility(View.VISIBLE);
                         buttonIncreRep.setVisibility(View.VISIBLE);
-
-                        creteLisDropset();
-
+                        initListDropset();
+                        isStart = true;
                     } else {
                         Toast.makeText(this, R.string.select_excersise, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
-
             case R.id.buttonNextWeight:
                 nextWeight();
                 break;
@@ -118,43 +123,59 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
     }
 
-    private void creteLisDropset() {
+    private void initListDropset() {
 
-        if (adapterExcersise == null || adapterExcersise.getCount() == 10 || progressCurrent != progress || positionItemCurrent != positionItem) {
+        if (adapterExcersise.getCount() == 10) {
+            adapterExcersise.setNewWeight(progressWeight);
+        } else if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
             positionItemCurrent = positionItem;
-            progressCurrent = progress;
-            adapterExcersise = new AdapterExcersise(progressCurrent, this);
-            listViewDropset.setAdapter(adapterExcersise);
-            listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
-        }
+            progressWeightCurrent = progressWeight;
+            adapterExcersise.changeWeight(progressWeight);
 
+        }
+        listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
     }
 
     public void nextWeight() {
         if (isStart && adapterExcersise.getCount() < 10) {
             double multiplo = (10 - adapterExcersise.getCount()) / 10.0;
-            adapterExcersise.addItemDropset((int) (progressCurrent * multiplo));
+            adapterExcersise.addItemDropset((int) (progressWeightCurrent * multiplo));
             listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
         }
 
     }
 
     public void incrementeRep() {
-        if (isStart) {
-            if (listViewDropset.getLastVisiblePosition() == adapterExcersise.getCount() - 1) {
-                adapterExcersise.incrementRepetitions();
-            } else {
-                adapterExcersise.incrementRepetitionsInvisible();
-            }
 
+        if (listViewDropset.getLastVisiblePosition() == adapterExcersise.getCount() - 1) {
+            adapterExcersise.incrementRepetitions();
+        } else {
+            adapterExcersise.incrementRepetitionsInvisible();
         }
+
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + (progress + 1) + lb);
 
-        this.progress = progress + 1;
+        textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + (progress + 1) + lb);
+        this.progressWeight = progress + 1;
+
+        if (!isStart) {
+            if (adapterExcersise.getCount() > 1 && !isStart) {
+                adapterExcersise.setNewWeight(progressWeight);
+            } else if (listViewDropset.getFirstVisiblePosition() == 0) {
+                if (isListViewVisible) {
+                    adapterExcersise.changeWeight(progressWeight);
+                } else {
+                    adapterExcersise.changeWeightInvisible(progressWeight);
+                    adapterExcersise.notifyDataSetChanged();
+                    isListViewVisible = true;
+                }
+            } else {
+                adapterExcersise.changeWeightInvisible(progressWeight);
+            }
+        }
     }
 
     @Override
@@ -174,12 +195,10 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         {
             case android.R.id.home:
                 finish();
-
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

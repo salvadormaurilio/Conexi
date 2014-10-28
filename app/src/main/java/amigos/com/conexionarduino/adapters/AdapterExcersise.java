@@ -1,6 +1,7 @@
 package amigos.com.conexionarduino.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,22 +22,103 @@ public class AdapterExcersise extends BaseAdapter {
 
     private List<ItemDropset> itemDropsets;
     private LayoutInflater inflater;
+
     private String[] arrayWeights;
-    private TextView textViewRepetition;
     private String weight;
     private String repetition;
     private String lb;
 
-    public AdapterExcersise(int weitghtInitial, Context context) {
+    private TextView textViewRepetition;
+    private TextView textViewWeight;
+
+
+    private int typeItem;
+
+    public AdapterExcersise(Context context, int typeItem) {
 
         itemDropsets = new ArrayList<ItemDropset>();
-        itemDropsets.add(new ItemDropset(weitghtInitial));
+        itemDropsets.add(new ItemDropset(1));
         inflater = LayoutInflater.from(context);
-        arrayWeights = context.getResources().getStringArray(R.array.weights);
-        weight = " " + context.getString(R.string.weight);
+        this.typeItem = typeItem;
+
+        if (this.typeItem == 1) {
+            arrayWeights = context.getResources().getStringArray(R.array.weights);
+            weight = " " + context.getString(R.string.weight);
+        }
+
         repetition = " " + context.getString(R.string.repetition);
         lb = " " + context.getString(R.string.lb);
     }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View container = convertView;
+        ViewHolderDropset viewHolderDropset = null;
+
+        if (container == null) {
+            if (typeItem == 1) {
+                container = inflater.inflate(R.layout.item_excersise_dropset, parent, false);
+                viewHolderDropset = new ViewHolderDropset(container, R.id.textViewNumWeight, R.id.textViewWeight, R.id.textViewNumRep);
+            }
+            if (typeItem == 2) {
+                container = inflater.inflate(R.layout.item_excersise_negative, parent, false);
+                viewHolderDropset = new ViewHolderDropset(container, R.id.textViewWeight, R.id.textViewNumRep);
+            }
+            container.setTag(viewHolderDropset);
+        } else {
+            viewHolderDropset = (ViewHolderDropset) container.getTag();
+        }
+
+        if (typeItem == 1) {
+            viewHolderDropset.getTextViewNumWeight().setText(arrayWeights[position] + weight);
+        }
+
+
+        if (position == 0) {
+            textViewWeight = viewHolderDropset.getTextViewWeight();
+        }
+
+        if (position == itemDropsets.size() - 1) {
+            textViewRepetition = viewHolderDropset.getTextViewNumRep();
+        }
+
+        viewHolderDropset.getTextViewWeight().setText(itemDropsets.get(position).getWeight() + lb);
+        viewHolderDropset.getTextViewNumRep().setText(itemDropsets.get(position).getRepetitionsCounts() + repetition);
+
+        return container;
+    }
+
+
+    public void addItemDropset(int weight) {
+        itemDropsets.add(new ItemDropset(weight));
+        notifyDataSetChanged();
+    }
+
+    public void incrementRepetitions() {
+        itemDropsets.get(itemDropsets.size() - 1).incrementRepetitionsCounts();
+        textViewRepetition.setText(itemDropsets.get(itemDropsets.size() - 1).getRepetitionsCounts() + repetition);
+    }
+
+
+    public void incrementRepetitionsInvisible(){
+        itemDropsets.get(itemDropsets.size() - 1).incrementRepetitionsCounts();
+    }
+
+    public void changeWeight(int weight) {
+        itemDropsets.get(0).setWeight(weight);
+        textViewWeight.setText(itemDropsets.get(0).getWeight()+lb);
+    }
+
+    public void changeWeightInvisible(int weight) {
+        itemDropsets.get(0).setWeight(weight);
+    }
+
+    public void setNewWeight(int weight) {
+        itemDropsets.clear();
+        itemDropsets.add(new ItemDropset(weight));
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getCount() {
@@ -53,46 +135,7 @@ public class AdapterExcersise extends BaseAdapter {
         return itemDropsets.indexOf(itemDropsets.get(position));
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View container = convertView;
-        ViewHolderDropset viewHolderDropset;
-
-        if (container == null) {
-            container = inflater.inflate(R.layout.item_excersise_dropset, parent, false);
-            viewHolderDropset = new ViewHolderDropset(container, R.id.textViewNumWeight, R.id.textViewWeight, R.id.textViewNumRep);
-            container.setTag(viewHolderDropset);
-        } else {
-            viewHolderDropset = (ViewHolderDropset) container.getTag();
-        }
-
-        viewHolderDropset.getTextViewNumWeight().setText(arrayWeights[position] + weight);
-        viewHolderDropset.getTextViewWeight().setText(itemDropsets.get(position).getWeight() + lb);
-        viewHolderDropset.getTextViewNumRep().setText(itemDropsets.get(position).getRepetitionsCounts() + repetition);
-
-        if (position == itemDropsets.size() - 1) {
-            textViewRepetition = viewHolderDropset.getTextViewNumRep();
-        }
-
-        return container;
-    }
-
-
-    public void addItemDropset(int weight) {
-        itemDropsets.add(new ItemDropset(weight));
-        notifyDataSetChanged();
-    }
-
-    public void incrementRepetitions() {
-        itemDropsets.get(itemDropsets.size() - 1).incrementRepetitionsCounts();
-        textViewRepetition.setText(itemDropsets.get(itemDropsets.size() - 1).getRepetitionsCounts() + repetition);
-
-    }
-    public void incrementRepetitionsInvisible(){
-        itemDropsets.get(itemDropsets.size() - 1).incrementRepetitionsCounts();
-    }
-
-    private class ViewHolderDropset {
+    private static class ViewHolderDropset {
 
         private TextView textViewNumWeight;
         private TextView textViewWeight;
@@ -101,6 +144,13 @@ public class AdapterExcersise extends BaseAdapter {
         private ViewHolderDropset(View container, int numWeightContainerId, int weightContainerId, int numRepContainerId) {
 
             textViewNumWeight = (TextView) container.findViewById(numWeightContainerId);
+            textViewWeight = (TextView) container.findViewById(weightContainerId);
+            textViewNumRep = (TextView) container.findViewById(numRepContainerId);
+        }
+
+
+        private ViewHolderDropset(View container, int weightContainerId, int numRepContainerId) {
+
             textViewWeight = (TextView) container.findViewById(weightContainerId);
             textViewNumRep = (TextView) container.findViewById(numRepContainerId);
         }
@@ -118,5 +168,6 @@ public class AdapterExcersise extends BaseAdapter {
             return textViewNumRep;
         }
     }
+
 
 }

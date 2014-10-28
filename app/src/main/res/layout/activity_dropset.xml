@@ -208,7 +208,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:visibility="gone"
                 tools:ignore="ButtonStyle" />
 
             <Button
@@ -223,7 +222,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:visibility="gone"
                 tools:ignore="ButtonStyle" />
         </LinearLayout>
     </RelativeLayout>

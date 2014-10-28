@@ -12,19 +12,6 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/textViewNumWeight"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bac_item_table_droset"
-            android:gravity="center"
-            android:padding="12dp"
-            android:singleLine="true"
-            android:text="1st Weight"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/textViewWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
