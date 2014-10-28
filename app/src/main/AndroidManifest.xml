@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="amigos.com.conexionarduino.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -18,17 +18,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="amigos.com.conexionarduino.DropsetActivity"
+            android:name=".ui.DropsetActivity"
             android:label="@string/title_activity_dropset"
             android:screenOrientation="landscape">
         </activity>
         <activity
-            android:name="amigos.com.conexionarduino.PosNegActivity"
+            android:name=".ui.PosNegActivity"
             android:label="@string/title_activity_pos_neg"
             android:screenOrientation="landscape">
         </activity>
         <activity
-            android:name="amigos.com.conexionarduino.NegativeActivity"
+            android:name=".ui.NegativeActivity"
             android:label="@string/title_activity_negative"
             android:screenOrientation="landscape">
         </activity>

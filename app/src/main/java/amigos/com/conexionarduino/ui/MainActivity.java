@@ -1,11 +1,11 @@
-package amigos.com.conexionarduino;
+package amigos.com.conexionarduino.ui;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+
+import amigos.com.conexionarduino.R;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {

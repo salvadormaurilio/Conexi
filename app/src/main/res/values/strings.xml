@@ -30,6 +30,8 @@
     <string name="title_table_positive_weight">Positive Weight</string>
     <string name="warning_message_weight_positive">Coloca primero un peso Positivo</string>
     <string name="warning_message_weight_negative">Coloca un peso Negativo en la celda anterior</string>
+    <string name="min_loaded_weight_pos_neg">6 lb</string>
+    <string name="warning_message_full_table">Colo todos los valores de la Tabla</string>
 
 
 </resources>

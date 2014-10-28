@@ -1,4 +1,4 @@
-package amigos.com.conexionarduino;
+package amigos.com.conexionarduino.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,10 +12,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import amigos.com.conexionarduino.R;
 import amigos.com.conexionarduino.adapters.AdapterDropsetAndNegative;
 
 
-public class NegativeActivity extends Activity implements AdapterView.OnItemClickListener, SeekBar.OnSeekBarChangeListener, View.OnClickListener {
+public class DropsetActivity extends Activity implements AdapterView.OnItemClickListener, SeekBar.OnSeekBarChangeListener, View.OnClickListener {
 
     private ListView listViewExcersise;
     private TextView textViewLoadedWeight;
@@ -28,6 +29,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     private ListView listViewDropset;
     private AdapterDropsetAndNegative adapterDropsetAndNegative;
 
+    private Button buttonNextWeight;
     private View buttonIncreRep;
 
     private int positionItemCurrent;
@@ -38,7 +40,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_negative);
+        setContentView(R.layout.activity_dropset);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -49,10 +51,10 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         positionItemCurrent = -1;
 
         lb = " " + getString(R.string.lb);
-        textViewLoadedWeight = (TextView) findViewById(R.id.textViewLoadedWeight);
+        textViewLoadedWeight = (TextView) findViewById(R.id.textViewDialogLoadedWeight);
         textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " 1" + lb);
 
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarLoadedWeight);
+        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarDialogLoadedWeight);
         seekBar.setOnSeekBarChangeListener(this);
         progressWeight = 1;
         progressWeightCurrent = 1;
@@ -61,11 +63,15 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
 
+        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
+        buttonNextWeight.setOnClickListener(this);
+
         buttonIncreRep = findViewById(R.id.buttonIncreRep);
         buttonIncreRep.setOnClickListener(this);
 
-        listViewDropset = (ListView) findViewById(R.id.listViewDropset);
-        adapterDropsetAndNegative = new AdapterDropsetAndNegative(this, 2);
+        listViewDropset = (ListView) findViewById(R.id.listViewTable);
+
+        adapterDropsetAndNegative = new AdapterDropsetAndNegative(this, 1);
         listViewDropset.setAdapter(adapterDropsetAndNegative);
 
         isListViewVisible = false;
@@ -78,6 +84,10 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         listViewExcersise.setItemChecked(position, true);
         positionItem = position;
 
+        if (!isStart && adapterDropsetAndNegative.getCount() > 1 && positionItem != positionItemCurrent) {
+            adapterDropsetAndNegative.setNewWeight(progressWeight);
+        }
+
     }
 
     @Override
@@ -87,12 +97,14 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
             case R.id.buttonStartEnd:
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
+                    buttonNextWeight.setVisibility(View.GONE);
                     buttonIncreRep.setVisibility(View.GONE);
                     listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
                     isStart = false;
                 } else {
                     if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
+                        buttonNextWeight.setVisibility(View.VISIBLE);
                         buttonIncreRep.setVisibility(View.VISIBLE);
                         initListDropset();
                         isStart = true;
@@ -100,6 +112,9 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                         Toast.makeText(this, R.string.select_excersise, Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
+            case R.id.buttonNextWeight:
+                nextWeight();
                 break;
             case R.id.buttonIncreRep:
                 incrementeRep();
@@ -111,13 +126,24 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
     private void initListDropset() {
 
-        if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
+        if (adapterDropsetAndNegative.getCount() == 10) {
+            adapterDropsetAndNegative.setNewWeight(progressWeight);
+        } else if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
             positionItemCurrent = positionItem;
             progressWeightCurrent = progressWeight;
             adapterDropsetAndNegative.changeWeight(progressWeight);
 
         }
         listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
+    }
+
+    public void nextWeight() {
+        if (isStart && adapterDropsetAndNegative.getCount() < 10) {
+            double multiplo = (10 - adapterDropsetAndNegative.getCount()) / 10.0;
+            adapterDropsetAndNegative.addItemDropset((int) (progressWeightCurrent * multiplo));
+            listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
+        }
+
     }
 
     public void incrementeRep() {
@@ -137,7 +163,9 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         this.progressWeight = progress + 1;
 
         if (!isStart) {
-            if (listViewDropset.getFirstVisiblePosition() == 0) {
+            if (adapterDropsetAndNegative.getCount() > 1 && !isStart) {
+                adapterDropsetAndNegative.setNewWeight(progressWeight);
+            } else if (listViewDropset.getFirstVisiblePosition() == 0) {
                 if (isListViewVisible) {
                     adapterDropsetAndNegative.changeWeight(progressWeight);
                 } else {
@@ -173,6 +201,5 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

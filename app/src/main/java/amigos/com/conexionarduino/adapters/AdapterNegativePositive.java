@@ -42,6 +42,9 @@ public class AdapterNegativePositive extends BaseAdapter {
 
     private PlaceWeightListener placeWeightListener;
 
+    private boolean isFullTable;
+
+
     public AdapterNegativePositive(Context context, PlaceWeightListener placeWeightListener) {
 
         this.context = context;
@@ -58,11 +61,14 @@ public class AdapterNegativePositive extends BaseAdapter {
         currentPosition = 0;
         idTextViewWeight = R.id.textViewPositiveWeight;
 
+        isFullTable = true;
+
         itemPositiveNegatives = new ArrayList<ItemPositiveNegative>();
         itemPositiveNegatives.add(new ItemPositiveNegative());
         itemPositiveNegatives.get(0).setWeightNegative(1);
         itemPositiveNegatives.add(new ItemPositiveNegative());
         itemPositiveNegatives.add(new ItemPositiveNegative());
+
 
     }
 
@@ -85,12 +91,14 @@ public class AdapterNegativePositive extends BaseAdapter {
         if (itemPositiveNegatives.get(position).getWeightNegative() > -1) {
             viewHolderDropset.getTextViewNegativeWeight().setText(itemPositiveNegatives.get(position).getWeightNegative() + lb);
         } else {
+            isFullTable = false;
             viewHolderDropset.getTextViewNegativeWeight().setText(placeWeight);
         }
 
         if (itemPositiveNegatives.get(position).getWeightPositive() > -1) {
             viewHolderDropset.getTextViewPositiveWeight().setText(itemPositiveNegatives.get(position).getWeightPositive() + lb);
         } else {
+            isFullTable = false;
             viewHolderDropset.getTextViewPositiveWeight().setText(placeWeight);
         }
 
@@ -117,7 +125,7 @@ public class AdapterNegativePositive extends BaseAdapter {
                             if (position == 0 && itemPositiveNegatives.get(position - 1).getWeightNegative() > -1) {
                                 currentPosition = position;
                                 idTextViewWeight = R.id.textViewNegativeWeight;
-                                placeWeightListener.onDialogoPlaceWeight(itemPositiveNegatives.get(position - 1).getWeightNegative() - 1);
+                                placeWeightListener.onDialogoPlaceWeight(6 - position, itemPositiveNegatives.get(position - 1).getWeightNegative() - 1);
                             } else {
                                 Toast.makeText(context, R.string.warning_message_weight_negative, Toast.LENGTH_SHORT).show();
                             }
@@ -128,7 +136,7 @@ public class AdapterNegativePositive extends BaseAdapter {
                             if (itemPositiveNegatives.get(position).getWeightNegative() > -1) {
                                 currentPosition = position;
                                 idTextViewWeight = R.id.textViewPositiveWeight;
-                                placeWeightListener.onDialogoPlaceWeight(itemPositiveNegatives.get(position - 1).getWeightNegative() / 2);
+                                placeWeightListener.onDialogoPlaceWeight(1, itemPositiveNegatives.get(position ).getWeightNegative() / 2);
 
                             } else {
                                 Toast.makeText(context, R.string.warning_message_weight_positive, Toast.LENGTH_SHORT).show();
@@ -154,14 +162,14 @@ public class AdapterNegativePositive extends BaseAdapter {
     }
 
 
-    public void incrementRepetitions() {
-        itemPositiveNegatives.get(itemPositiveNegatives.size() - 1).incrementRepetitionsCounts();
-        textViewRepetition.setText(itemPositiveNegatives.get(itemPositiveNegatives.size() - 1).getRepetitionsCounts() + repetition);
+    public void incrementRepetitions(int position) {
+        itemPositiveNegatives.get(position).incrementRepetitionsCounts();
+        textViewRepetition.setText(itemPositiveNegatives.get(position).getRepetitionsCounts() + repetition);
     }
 
 
-    public void incrementRepetitionsInvisible() {
-        itemPositiveNegatives.get(itemPositiveNegatives.size() - 1).incrementRepetitionsCounts();
+    public void incrementRepetitionsInvisible(int position) {
+        itemPositiveNegatives.get(position).incrementRepetitionsCounts();
     }
 
     public void changeWeightInitial(int weight) {
@@ -177,15 +185,19 @@ public class AdapterNegativePositive extends BaseAdapter {
     public void setNewWeightInitial(int weight) {
         itemPositiveNegatives.get(0).setWeightNegative(weight);
         itemPositiveNegatives.get(0).setWeightPositive(-1);
+        itemPositiveNegatives.get(0).initilizerepetitionsCounts();
         itemPositiveNegatives.get(1).setWeightNegative(-1);
         itemPositiveNegatives.get(1).setWeightPositive(-1);
+        itemPositiveNegatives.get(1).initilizerepetitionsCounts();
         itemPositiveNegatives.get(2).setWeightNegative(-1);
         itemPositiveNegatives.get(2).setWeightPositive(-1);
+        itemPositiveNegatives.get(2).initilizerepetitionsCounts();
+        isFullTable = true;
         notifyDataSetChanged();
     }
 
 
-    private void setWeight(int weight) {
+    public void setWeight(int weight) {
 
         switch (idTextViewWeight) {
             case R.id.textViewNegativeWeight:
@@ -195,7 +207,12 @@ public class AdapterNegativePositive extends BaseAdapter {
                 itemPositiveNegatives.get(currentPosition).setWeightPositive(weight);
                 break;
         }
+        isFullTable = true;
         notifyDataSetChanged();
+    }
+
+    public boolean isFullTable() {
+        return isFullTable;
     }
 
     public void setClickable(boolean isClickable) {
@@ -232,7 +249,6 @@ public class AdapterNegativePositive extends BaseAdapter {
             textViewNumRep = (TextView) container.findViewById(numRepContainerId);
         }
 
-
         public TextView getTextViewNumWeight() {
             return textViewNumWeight;
         }
@@ -249,6 +265,5 @@ public class AdapterNegativePositive extends BaseAdapter {
             return textViewNumRep;
         }
     }
-
 
 }

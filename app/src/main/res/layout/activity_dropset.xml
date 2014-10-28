@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal"
     android:weightSum="2"
-    tools:context="amigos.com.conexionarduino.DropsetActivity"
+    tools:context="amigos.com.conexionarduino.ui.DropsetActivity"
     android:baselineAligned="false">
 
     <RelativeLayout
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textViewLoadedWeight"
+                    android:id="@+id/textViewDialogLoadedWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bac_title_selec_excer"
@@ -67,10 +67,10 @@
                     android:textStyle="bold" />
 
                 <SeekBar
-                    android:id="@+id/seekBarLoadedWeight"
+                    android:id="@+id/seekBarDialogLoadedWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewLoadedWeight"
+                    android:layout_below="@+id/textViewDialogLoadedWeight"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
@@ -80,8 +80,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/seekBarLoadedWeight"
-                    android:layout_below="@id/seekBarLoadedWeight"
+                    android:layout_alignLeft="@+id/seekBarDialogLoadedWeight"
+                    android:layout_below="@id/seekBarDialogLoadedWeight"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/min_loaded_weight"
@@ -91,8 +91,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/seekBarLoadedWeight"
-                    android:layout_below="@id/seekBarLoadedWeight"
+                    android:layout_alignRight="@+id/seekBarDialogLoadedWeight"
+                    android:layout_below="@id/seekBarDialogLoadedWeight"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/max_loaded_weight"
@@ -176,7 +176,7 @@
         </TableLayout>
 
         <ListView
-            android:id="@+id/listViewDropset"
+            android:id="@+id/listViewTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/layoutContainerButtons"
