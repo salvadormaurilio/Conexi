@@ -12,8 +12,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import amigos.com.conexionarduino.adapters.AdapterExcersise;
-
 
 public class PosNegActivity extends Activity implements AdapterView.OnItemClickListener, SeekBar.OnSeekBarChangeListener, View.OnClickListener {
 

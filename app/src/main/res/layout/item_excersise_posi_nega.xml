@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/select_item_negative">
+    android:background="@drawable/select_item_negative_positive">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
+        android:weightSum="4"
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/textViewWeight"
+            android:id="@+id/textViewNumWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -20,7 +20,35 @@
             android:gravity="center"
             android:padding="12dp"
             android:singleLine="true"
+            android:text="1st Weight"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewNegativeWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/textview_background_posi_nega"
+            android:gravity="center"
+            android:longClickable="false"
+            android:padding="12dp"
+            android:singleLine="true"
             android:text="12 lb"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewPositiveWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/textview_background_posi_nega"
+            android:gravity="center"
+            android:longClickable="false"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:text="14 lb"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
 

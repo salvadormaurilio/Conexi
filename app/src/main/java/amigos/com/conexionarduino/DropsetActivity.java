@@ -12,7 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import amigos.com.conexionarduino.adapters.AdapterExcersise;
+import amigos.com.conexionarduino.adapters.AdapterDropsetAndNegative;
 
 
 public class DropsetActivity extends Activity implements AdapterView.OnItemClickListener, SeekBar.OnSeekBarChangeListener, View.OnClickListener {
@@ -26,7 +26,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     private String lb;
 
     private ListView listViewDropset;
-    private AdapterExcersise adapterExcersise;
+    private AdapterDropsetAndNegative adapterDropsetAndNegative;
 
     private Button buttonNextWeight;
     private View buttonIncreRep;
@@ -70,8 +70,8 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
         listViewDropset = (ListView) findViewById(R.id.listViewDropset);
 
-        adapterExcersise = new AdapterExcersise(this, 1);
-        listViewDropset.setAdapter(adapterExcersise);
+        adapterDropsetAndNegative = new AdapterDropsetAndNegative(this, 1);
+        listViewDropset.setAdapter(adapterDropsetAndNegative);
 
         isListViewVisible = false;
 
@@ -83,8 +83,8 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         listViewExcersise.setItemChecked(position, true);
         positionItem = position;
 
-        if (!isStart && adapterExcersise.getCount() > 1 && positionItem != positionItemCurrent) {
-            adapterExcersise.setNewWeight(progressWeight);
+        if (!isStart && adapterDropsetAndNegative.getCount() > 1 && positionItem != positionItemCurrent) {
+            adapterDropsetAndNegative.setNewWeight(progressWeight);
         }
 
     }
@@ -98,7 +98,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
                     buttonStartEnd.setText(R.string.btn_title_start);
                     buttonNextWeight.setVisibility(View.GONE);
                     buttonIncreRep.setVisibility(View.GONE);
-                    listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, false);
+                    listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
                     isStart = false;
                 } else {
                     if (positionItem != -1) {
@@ -125,32 +125,32 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
     private void initListDropset() {
 
-        if (adapterExcersise.getCount() == 10) {
-            adapterExcersise.setNewWeight(progressWeight);
+        if (adapterDropsetAndNegative.getCount() == 10) {
+            adapterDropsetAndNegative.setNewWeight(progressWeight);
         } else if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
             positionItemCurrent = positionItem;
             progressWeightCurrent = progressWeight;
-            adapterExcersise.changeWeight(progressWeight);
+            adapterDropsetAndNegative.changeWeight(progressWeight);
 
         }
-        listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
+        listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
     }
 
     public void nextWeight() {
-        if (isStart && adapterExcersise.getCount() < 10) {
-            double multiplo = (10 - adapterExcersise.getCount()) / 10.0;
-            adapterExcersise.addItemDropset((int) (progressWeightCurrent * multiplo));
-            listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
+        if (isStart && adapterDropsetAndNegative.getCount() < 10) {
+            double multiplo = (10 - adapterDropsetAndNegative.getCount()) / 10.0;
+            adapterDropsetAndNegative.addItemDropset((int) (progressWeightCurrent * multiplo));
+            listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
         }
 
     }
 
     public void incrementeRep() {
 
-        if (listViewDropset.getLastVisiblePosition() == adapterExcersise.getCount() - 1) {
-            adapterExcersise.incrementRepetitions();
+        if (listViewDropset.getLastVisiblePosition() == adapterDropsetAndNegative.getCount() - 1) {
+            adapterDropsetAndNegative.incrementRepetitions();
         } else {
-            adapterExcersise.incrementRepetitionsInvisible();
+            adapterDropsetAndNegative.incrementRepetitionsInvisible();
         }
 
     }
@@ -162,18 +162,18 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         this.progressWeight = progress + 1;
 
         if (!isStart) {
-            if (adapterExcersise.getCount() > 1 && !isStart) {
-                adapterExcersise.setNewWeight(progressWeight);
+            if (adapterDropsetAndNegative.getCount() > 1 && !isStart) {
+                adapterDropsetAndNegative.setNewWeight(progressWeight);
             } else if (listViewDropset.getFirstVisiblePosition() == 0) {
                 if (isListViewVisible) {
-                    adapterExcersise.changeWeight(progressWeight);
+                    adapterDropsetAndNegative.changeWeight(progressWeight);
                 } else {
-                    adapterExcersise.changeWeightInvisible(progressWeight);
-                    adapterExcersise.notifyDataSetChanged();
+                    adapterDropsetAndNegative.changeWeightInvisible(progressWeight);
+                    adapterDropsetAndNegative.notifyDataSetChanged();
                     isListViewVisible = true;
                 }
             } else {
-                adapterExcersise.changeWeightInvisible(progressWeight);
+                adapterDropsetAndNegative.changeWeightInvisible(progressWeight);
             }
         }
     }

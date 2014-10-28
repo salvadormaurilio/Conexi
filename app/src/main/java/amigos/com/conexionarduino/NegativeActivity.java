@@ -12,7 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import amigos.com.conexionarduino.adapters.AdapterExcersise;
+import amigos.com.conexionarduino.adapters.AdapterDropsetAndNegative;
 
 
 public class NegativeActivity extends Activity implements AdapterView.OnItemClickListener, SeekBar.OnSeekBarChangeListener, View.OnClickListener {
@@ -26,7 +26,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     private String lb;
 
     private ListView listViewDropset;
-    private AdapterExcersise adapterExcersise;
+    private AdapterDropsetAndNegative adapterDropsetAndNegative;
 
     private View buttonIncreRep;
 
@@ -65,8 +65,8 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         buttonIncreRep.setOnClickListener(this);
 
         listViewDropset = (ListView) findViewById(R.id.listViewDropset);
-        adapterExcersise = new AdapterExcersise(this, 2);
-        listViewDropset.setAdapter(adapterExcersise);
+        adapterDropsetAndNegative = new AdapterDropsetAndNegative(this, 2);
+        listViewDropset.setAdapter(adapterDropsetAndNegative);
 
         isListViewVisible = false;
 
@@ -88,7 +88,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
                     buttonIncreRep.setVisibility(View.GONE);
-                    listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, false);
+                    listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
                     isStart = false;
                 } else {
                     if (positionItem != -1) {
@@ -114,18 +114,18 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
             positionItemCurrent = positionItem;
             progressWeightCurrent = progressWeight;
-            adapterExcersise.changeWeight(progressWeight);
+            adapterDropsetAndNegative.changeWeight(progressWeight);
 
         }
-        listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
+        listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
     }
 
     public void incrementeRep() {
 
-        if (listViewDropset.getLastVisiblePosition() == adapterExcersise.getCount() - 1) {
-            adapterExcersise.incrementRepetitions();
+        if (listViewDropset.getLastVisiblePosition() == adapterDropsetAndNegative.getCount() - 1) {
+            adapterDropsetAndNegative.incrementRepetitions();
         } else {
-            adapterExcersise.incrementRepetitionsInvisible();
+            adapterDropsetAndNegative.incrementRepetitionsInvisible();
         }
 
     }
@@ -139,14 +139,14 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         if (!isStart) {
             if (listViewDropset.getFirstVisiblePosition() == 0) {
                 if (isListViewVisible) {
-                    adapterExcersise.changeWeight(progressWeight);
+                    adapterDropsetAndNegative.changeWeight(progressWeight);
                 } else {
-                    adapterExcersise.changeWeightInvisible(progressWeight);
-                    adapterExcersise.notifyDataSetChanged();
+                    adapterDropsetAndNegative.changeWeightInvisible(progressWeight);
+                    adapterDropsetAndNegative.notifyDataSetChanged();
                     isListViewVisible = true;
                 }
             } else {
-                adapterExcersise.changeWeightInvisible(progressWeight);
+                adapterDropsetAndNegative.changeWeightInvisible(progressWeight);
             }
         }
     }

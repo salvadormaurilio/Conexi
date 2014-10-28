@@ -18,7 +18,7 @@ import amigos.com.conexionarduino.util.ItemDropset;
 /**
  * Created by sati on 22/10/2014.
  */
-public class AdapterExcersise extends BaseAdapter {
+public class AdapterDropsetAndNegative extends BaseAdapter {
 
 
     private List<ItemDropset> itemDropsets;
@@ -34,7 +34,7 @@ public class AdapterExcersise extends BaseAdapter {
 
     private int typeItem;
 
-    public AdapterExcersise(Context context, int typeItem) {
+    public AdapterDropsetAndNegative(Context context, int typeItem) {
 
 
         itemDropsets = new ArrayList<ItemDropset>();
@@ -74,6 +74,9 @@ public class AdapterExcersise extends BaseAdapter {
             viewHolderDropset.getTextViewNumWeight().setText(arrayWeights[position] + weight);
         }
 
+        viewHolderDropset.getTextViewWeight().setText(itemDropsets.get(position).getWeight() + lb);
+        viewHolderDropset.getTextViewNumRep().setText(itemDropsets.get(position).getRepetitionsCounts() + repetition);
+
         if (position == 0) {
             textViewWeight = viewHolderDropset.getTextViewWeight();
         }
@@ -82,8 +85,6 @@ public class AdapterExcersise extends BaseAdapter {
             textViewRepetition = viewHolderDropset.getTextViewNumRep();
         }
 
-        viewHolderDropset.getTextViewWeight().setText(itemDropsets.get(position).getWeight() + lb);
-        viewHolderDropset.getTextViewNumRep().setText(itemDropsets.get(position).getRepetitionsCounts() + repetition);
 
         return container;
     }

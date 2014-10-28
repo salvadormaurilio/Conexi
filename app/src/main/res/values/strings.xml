@@ -20,11 +20,16 @@
     <string name="repetition">Rep</string>
     <string name="weight">Weigth</string>
     <string name="lb">lb</string>
+    <string name="place_weight">Place a Weight</string>
     <string name="btn_title_next_weight">Next Weight</string>
     <string name="btn_title_incre_rep">Increment Rep.</string>
     <string name="title_table_weight">Weight</string>
     <string name="title_table_numw_weight">Num. Weight</string>
     <string name="title_table_num_rep">Rep. Count</string>
+    <string name="title_table_negative_weight">Negative Weight</string>
+    <string name="title_table_positive_weight">Positive Weight</string>
+    <string name="warning_message_weight_positive">Coloca primero un peso Positivo</string>
+    <string name="warning_message_weight_negative">Coloca un peso Negativo en la celda anterior</string>
 
 
 </resources>

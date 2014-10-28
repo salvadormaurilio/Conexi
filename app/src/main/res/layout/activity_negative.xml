@@ -137,11 +137,10 @@
                 tools:ignore="UselessParent">
 
                 <TextView
-                    android:id="@+id/textViewWeight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/bac_item_table_droset"
+                    android:background="@drawable/background_item_table"
                     android:gravity="center"
                     android:padding="12dp"
                     android:singleLine="true"
@@ -150,11 +149,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textViewNumRep"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/bac_item_table_droset"
+                    android:background="@drawable/background_item_table"
                     android:gravity="center"
                     android:padding="12dp"
                     android:singleLine="true"
