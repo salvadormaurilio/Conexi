@@ -1,54 +1,198 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/select_item_dropset">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    tools:context="amigos.com.conexionarduino.DropsetActivity">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="3"
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/textViewNumWeight"
-            android:layout_width="0dp"
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bac_item_table_droset"
-            android:gravity="center"
+            android:background="@drawable/bac_title_selec_excer"
             android:padding="12dp"
-            android:singleLine="true"
-            android:text="1st Weight"
+            android:text="@string/title_select_excersise"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/grey_white"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textViewWeight"
-            android:layout_width="0dp"
+        <ListView
+            android:id="@+id/listViewExcersise"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bac_item_table_droset"
-            android:gravity="center"
-            android:padding="12dp"
-            android:singleLine="true"
-            android:text="12 lb"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+            android:layout_above="@+id/spaceCenter"
+            android:layout_below="@+id/textView"
+            android:layout_marginBottom="8dp"
+            android:choiceMode="singleChoice" />
 
-        <TextView
-            android:id="@+id/textViewNumRep"
-            android:layout_width="0dp"
+        <Space
+            android:id="@+id/spaceCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true" />
+
+
+        <ScrollView
+            android:id="@+id/scrollViewLoadedWeight"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bac_item_table_droset"
-            android:gravity="center"
-            android:padding="12dp"
-            android:singleLine="true"
-            android:text="12 Rep"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+            android:layout_above="@+id/buttonStartEnd"
+            android:layout_below="@+id/spaceCenter">
 
-    </TableRow>
-</TableLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textViewLoadedWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bac_title_selec_excer"
+                    android:padding="12dp"
+                    android:text="@string/title_loaded_weight"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/grey_white"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:id="@+id/seekBarLoadedWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewLoadedWeight"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:max="719" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/seekBarLoadedWeight"
+                    android:layout_below="@id/seekBarLoadedWeight"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/min_loaded_weight"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/seekBarLoadedWeight"
+                    android:layout_below="@id/seekBarLoadedWeight"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/max_loaded_weight"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    tools:ignore="RtlHardcoded" />
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/buttonStartEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_background"
+            android:padding="20dp"
+            android:text="@string/btn_title_start"
+            android:textColor="@android:color/black"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="12dp">
+
+        <TableLayout
+            android:id="@+id/tableLayoutTitles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_grey_title">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/textViewWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bac_item_table_droset"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:singleLine="true"
+                    android:text="@string/title_table_weight"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewNumRep"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bac_item_table_droset"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:singleLine="true"
+                    android:text="@string/title_table_num_rep"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+            </TableRow>
+        </TableLayout>
+
+        <ListView
+            android:id="@+id/listViewDropset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonIncreRep"
+            android:layout_below="@+id/tableLayoutTitles"
+            android:layout_marginBottom="8dp"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/white"
+            android:dividerHeight="0dp" />
+
+
+        <Button
+            android:id="@+id/buttonIncreRep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_background"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:singleLine="true"
+            android:text="@string/btn_title_incre_rep"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="ButtonStyle" />
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -28,7 +28,6 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     private ListView listViewDropset;
     private AdapterExcersise adapterExcersise;
 
-    private Button buttonNextWeight;
     private View buttonIncreRep;
 
     private int positionItemCurrent;
@@ -39,7 +38,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dropset);
+        setContentView(R.layout.activity_negative);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -62,15 +61,11 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
 
-        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
-        buttonNextWeight.setOnClickListener(this);
-
         buttonIncreRep = findViewById(R.id.buttonIncreRep);
         buttonIncreRep.setOnClickListener(this);
 
         listViewDropset = (ListView) findViewById(R.id.listViewDropset);
-
-        adapterExcersise = new AdapterExcersise(this, 1);
+        adapterExcersise = new AdapterExcersise(this, 2);
         listViewDropset.setAdapter(adapterExcersise);
 
         isListViewVisible = false;
@@ -83,10 +78,6 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         listViewExcersise.setItemChecked(position, true);
         positionItem = position;
 
-        if (!isStart && adapterExcersise.getCount() > 1 && positionItem != positionItemCurrent) {
-            adapterExcersise.setNewWeight(progressWeight);
-        }
-
     }
 
     @Override
@@ -96,14 +87,12 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
             case R.id.buttonStartEnd:
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
-                    buttonNextWeight.setVisibility(View.GONE);
                     buttonIncreRep.setVisibility(View.GONE);
                     listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, false);
                     isStart = false;
                 } else {
                     if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
-                        buttonNextWeight.setVisibility(View.VISIBLE);
                         buttonIncreRep.setVisibility(View.VISIBLE);
                         initListDropset();
                         isStart = true;
@@ -111,9 +100,6 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                         Toast.makeText(this, R.string.select_excersise, Toast.LENGTH_SHORT).show();
                     }
                 }
-                break;
-            case R.id.buttonNextWeight:
-                nextWeight();
                 break;
             case R.id.buttonIncreRep:
                 incrementeRep();
@@ -125,24 +111,13 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
     private void initListDropset() {
 
-        if (adapterExcersise.getCount() == 10) {
-            adapterExcersise.setNewWeight(progressWeight);
-        } else if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
+        if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
             positionItemCurrent = positionItem;
             progressWeightCurrent = progressWeight;
             adapterExcersise.changeWeight(progressWeight);
 
         }
         listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
-    }
-
-    public void nextWeight() {
-        if (isStart && adapterExcersise.getCount() < 10) {
-            double multiplo = (10 - adapterExcersise.getCount()) / 10.0;
-            adapterExcersise.addItemDropset((int) (progressWeightCurrent * multiplo));
-            listViewDropset.setItemChecked(adapterExcersise.getCount() - 1, true);
-        }
-
     }
 
     public void incrementeRep() {
@@ -162,9 +137,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         this.progressWeight = progress + 1;
 
         if (!isStart) {
-            if (adapterExcersise.getCount() > 1 && !isStart) {
-                adapterExcersise.setNewWeight(progressWeight);
-            } else if (listViewDropset.getFirstVisiblePosition() == 0) {
+            if (listViewDropset.getFirstVisiblePosition() == 0) {
                 if (isListViewVisible) {
                     adapterExcersise.changeWeight(progressWeight);
                 } else {

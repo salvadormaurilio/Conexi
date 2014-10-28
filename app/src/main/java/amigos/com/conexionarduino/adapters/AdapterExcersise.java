@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,10 +32,10 @@ public class AdapterExcersise extends BaseAdapter {
     private TextView textViewRepetition;
     private TextView textViewWeight;
 
-
     private int typeItem;
 
     public AdapterExcersise(Context context, int typeItem) {
+
 
         itemDropsets = new ArrayList<ItemDropset>();
         itemDropsets.add(new ItemDropset(1));
@@ -72,7 +73,6 @@ public class AdapterExcersise extends BaseAdapter {
         if (typeItem == 1) {
             viewHolderDropset.getTextViewNumWeight().setText(arrayWeights[position] + weight);
         }
-
 
         if (position == 0) {
             textViewWeight = viewHolderDropset.getTextViewWeight();
