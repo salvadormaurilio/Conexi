@@ -1,12 +1,10 @@
 package amigos.com.conexionarduino.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -65,6 +63,10 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
                 container = inflater.inflate(R.layout.item_excersise_negative, parent, false);
                 viewHolderDropset = new ViewHolderDropset(container, R.id.textViewWeight, R.id.textViewNumRep);
             }
+
+            container.setOnClickListener(null);
+            container.setOnLongClickListener(null);
+
             container.setTag(viewHolderDropset);
         } else {
             viewHolderDropset = (ViewHolderDropset) container.getTag();
@@ -108,10 +110,19 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
     public void changeWeight(int weight) {
         itemDropsets.get(0).setWeight(weight);
         textViewWeight.setText(itemDropsets.get(0).getWeight()+lb);
+
+        if (typeItem == 2) {
+            itemDropsets.get(0).initilizeRepetitionsCounts();
+            textViewRepetition.setText(itemDropsets.get(itemDropsets.size() - 1).getRepetitionsCounts() + repetition);
+        }
     }
 
     public void changeWeightInvisible(int weight) {
         itemDropsets.get(0).setWeight(weight);
+        if (typeItem == 2) {
+            itemDropsets.get(0).initilizeRepetitionsCounts();
+        }
+
     }
 
     public void setNewWeight(int weight) {

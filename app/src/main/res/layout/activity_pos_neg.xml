@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textViewDialogLoadedWeight"
+                    android:id="@+id/textViewLoadedWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bac_title_selec_excer"
@@ -67,21 +67,21 @@
                     android:textStyle="bold" />
 
                 <SeekBar
-                    android:id="@+id/seekBarDialogLoadedWeight"
+                    android:id="@+id/seekBarLoadedWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewDialogLoadedWeight"
+                    android:layout_below="@+id/textViewLoadedWeight"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
-                    android:max="714" />
+                    android:max="712" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/seekBarDialogLoadedWeight"
-                    android:layout_below="@id/seekBarDialogLoadedWeight"
+                    android:layout_alignLeft="@+id/seekBarLoadedWeight"
+                    android:layout_below="@id/seekBarLoadedWeight"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/min_loaded_weight_pos_neg"
@@ -91,8 +91,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/seekBarDialogLoadedWeight"
-                    android:layout_below="@id/seekBarDialogLoadedWeight"
+                    android:layout_alignRight="@+id/seekBarLoadedWeight"
+                    android:layout_below="@id/seekBarLoadedWeight"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/max_loaded_weight"

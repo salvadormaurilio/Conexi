@@ -31,10 +31,9 @@ public class ItemPositiveNegative {
         this.weightPositive = weightPositive;
     }
 
-    public void initilizerepetitionsCounts () {
+    public void initilizeRepetitionsCounts() {
         repetitionsCounts = 0;
     }
-
 
     public int getRepetitionsCounts() {
         return repetitionsCounts;

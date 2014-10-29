@@ -29,5 +29,8 @@ public class ItemDropset {
         repetitionsCounts++;
     }
 
+    public void initilizeRepetitionsCounts() {
+        repetitionsCounts = 0;
+    }
 
 }

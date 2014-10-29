@@ -47,28 +47,32 @@ public class DialogSeekBarWeight extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_weight, null);
         builder.setView(view);
 
-        final TextView textViewDialogLoadedWeight = (TextView) view.findViewById(R.id.textViewDialogLoadedWeight);
+        final String lb = getString(R.string.lb);
+        final String loadedWeight = getString(R.string.title_loaded_weight);
+
 
         final int minWeight = getArguments().getInt(MIN_WEIGHT);
         final int maxWeight = getArguments().getInt(MAX_WEIGHT);
+
+        final TextView textViewDialogLoadedWeight = (TextView) view.findViewById(R.id.textViewDialogLoadedWeight);
+        textViewDialogLoadedWeight.setText(loadedWeight + " " +  minWeight + lb);
+
 
         TextView textViewDialogMinWeight = (TextView) view.findViewById(R.id.textViewDialogMinWeight);
         TextView textViewDialogMaxWeight = (TextView) view.findViewById(R.id.textViewDialogMaxWeight);
         textViewDialogMinWeight.setText(minWeight + "");
         textViewDialogMaxWeight.setText(maxWeight + "");
 
-        SeekBar seekBarDialogLoadedWeight = (SeekBar) view.findViewById(R.id.seekBarDialogLoadedWeight);
+        final SeekBar seekBarDialogLoadedWeight = (SeekBar) view.findViewById(R.id.seekBarDialogLoadedWeight);
 
         seekBarDialogLoadedWeight.setMax(maxWeight - minWeight);
 
-        final String lb = getString(R.string.lb);
-        final String loadedWeight = getString(R.string.title_loaded_weight);
+
 
         seekBarDialogLoadedWeight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textViewDialogLoadedWeight.setText(loadedWeight + " " + (progress + minWeight) + lb);
-                placeWeightListener.onNewWight(progress + getArguments().getInt(MIN_WEIGHT));
 
             }
 
@@ -86,6 +90,7 @@ public class DialogSeekBarWeight extends DialogFragment {
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                placeWeightListener.onNewWight(seekBarDialogLoadedWeight.getProgress() + minWeight);
 
             }
         });

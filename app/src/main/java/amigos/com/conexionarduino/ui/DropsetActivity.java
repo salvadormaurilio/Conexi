@@ -51,10 +51,10 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         positionItemCurrent = -1;
 
         lb = " " + getString(R.string.lb);
-        textViewLoadedWeight = (TextView) findViewById(R.id.textViewDialogLoadedWeight);
+        textViewLoadedWeight = (TextView) findViewById(R.id.textViewLoadedWeight);
         textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " 1" + lb);
 
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarDialogLoadedWeight);
+        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarLoadedWeight);
         seekBar.setOnSeekBarChangeListener(this);
         progressWeight = 1;
         progressWeightCurrent = 1;
@@ -75,6 +75,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         listViewDropset.setAdapter(adapterDropsetAndNegative);
 
         isListViewVisible = false;
+
 
     }
 

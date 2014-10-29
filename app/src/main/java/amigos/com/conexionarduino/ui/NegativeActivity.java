@@ -31,9 +31,6 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
     private View buttonIncreRep;
 
-    private int positionItemCurrent;
-    private int progressWeightCurrent;
-
     private boolean isListViewVisible;
 
     @Override
@@ -47,16 +44,14 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         listViewExcersise.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, getResources().getStringArray(R.array.excersises)));
         listViewExcersise.setOnItemClickListener(this);
         positionItem = -1;
-        positionItemCurrent = -1;
 
         lb = " " + getString(R.string.lb);
-        textViewLoadedWeight = (TextView) findViewById(R.id.textViewDialogLoadedWeight);
+        textViewLoadedWeight = (TextView) findViewById(R.id.textViewLoadedWeight);
         textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " 1" + lb);
 
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarDialogLoadedWeight);
+        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarLoadedWeight);
         seekBar.setOnSeekBarChangeListener(this);
         progressWeight = 1;
-        progressWeightCurrent = 1;
 
         buttonStartEnd = (Button) findViewById(R.id.buttonStartEnd);
         buttonStartEnd.setOnClickListener(this);
@@ -112,12 +107,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
     private void initListDropset() {
 
-        if (progressWeightCurrent != progressWeight || positionItemCurrent != positionItem) {
-            positionItemCurrent = positionItem;
-            progressWeightCurrent = progressWeight;
-            adapterDropsetAndNegative.changeWeight(progressWeight);
-
-        }
+        adapterDropsetAndNegative.changeWeight(progressWeight);
         listViewNegative.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
     }
 
