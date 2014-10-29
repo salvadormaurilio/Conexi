@@ -44,10 +44,13 @@ public class DialogSeekBarWeight extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.title_dialog_weight);
+        builder.setIcon(R.drawable.ic_launcher);
+
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_weight, null);
         builder.setView(view);
 
-        final String lb = getString(R.string.lb);
+        final String lb = " "+getString(R.string.lb);
         final String loadedWeight = getString(R.string.title_loaded_weight);
 
 

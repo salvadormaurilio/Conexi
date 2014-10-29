@@ -32,6 +32,7 @@
     <string name="warning_message_weight_negative">Coloca un peso Negativo en la celda anterior</string>
     <string name="min_loaded_weight_pos_neg">8 lb</string>
     <string name="warning_message_full_table">Coloca todos los valores de la Tabla</string>
+    <string name="title_dialog_weight">Weight</string>
 
 
 </resources>
