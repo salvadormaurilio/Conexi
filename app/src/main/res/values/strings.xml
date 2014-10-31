@@ -20,19 +20,37 @@
     <string name="repetition">Rep</string>
     <string name="weight">Weigth</string>
     <string name="lb">lb</string>
-    <string name="place_weight">Place a Weight</string>
+    <string name="input_weight">Input Weight</string>
     <string name="btn_title_next_weight">Next Weight</string>
     <string name="btn_title_incre_rep">Increment Rep.</string>
     <string name="title_table_weight">Weight</string>
     <string name="title_table_numw_weight">Num. Weight</string>
-    <string name="title_table_num_rep">Rep. Count</string>
-    <string name="title_table_negative_weight">Negative Weight</string>
-    <string name="title_table_positive_weight">Positive Weight</string>
+    <string name="title_table_num_rep">Rep. \nCounter</string>
+    <string name="title_table_negative_weight">Negative</string>
+    <string name="title_table_positive_weight">Positive</string>
     <string name="warning_message_weight_positive">Coloca primero un peso Positivo</string>
     <string name="warning_message_weight_negative">Coloca un peso Negativo en la celda anterior</string>
     <string name="min_loaded_weight_pos_neg">8 lb</string>
     <string name="warning_message_full_table">Coloca todos los valores de la Tabla</string>
     <string name="title_dialog_weight">Weight</string>
-
+    <string name="title_loaded_max_weight">Max. Allowable Weight 720 lb</string>
+    <string name="key_1">1</string>
+    <string name="key_2">2</string>
+    <string name="key_3">3</string>
+    <string name="key_4">4</string>
+    <string name="key_5">5</string>
+    <string name="key_6">6</string>
+    <string name="key_7">7</string>
+    <string name="key_8">8</string>
+    <string name="key_9">9</string>
+    <string name="key_0">0</string>
+    <string name="key_clear">Clear</string>
+    <string name="warning_message_weight">Debe haber un peso menor o igual a 720 lb</string>
+    <string name="warning_message_weight_max_dia">Debe haber un peso menor o igual a </string>
+    <string name="warning_message_weight_min_dia">Debe haber un peso mayor o igual a </string>
+    <string name="warning_message_weight_min">Debe haber un peso mayor o 0</string>
+    <string name="warning_message_weight_min_neg_pos">Debe haber un peso mayor o igual a 8 lb</string>
+    <string name="title_loaded_max_weight_dia">Max. Weight</string>
+    <string name="title_loaded_min_weight_dia">Min. Weight</string>
 
 </resources>

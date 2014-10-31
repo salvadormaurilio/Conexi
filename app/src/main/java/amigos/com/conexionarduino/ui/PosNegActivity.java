@@ -8,25 +8,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import amigos.com.conexionarduino.R;
 import amigos.com.conexionarduino.adapters.AdapterNegativePositive;
-import amigos.com.conexionarduino.dialogs.DialogSeekBarWeight;
+import amigos.com.conexionarduino.dialogs.DialogWeight;
 import amigos.com.conexionarduino.util.PlaceWeightListener;
 
 
-public class PosNegActivity extends Activity implements AdapterView.OnItemClickListener, SeekBar.OnSeekBarChangeListener,
-        View.OnClickListener, PlaceWeightListener {
+public class PosNegActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener, PlaceWeightListener {
 
     private ListView listViewExcersise;
     private TextView textViewLoadedWeight;
     private Button buttonStartEnd;
     private boolean isStart;
     private int positionItem;
-    private int progressWeight;
+    private int weight;
     private String lb;
 
     private ListView listViewNegaPosi;
@@ -35,12 +33,8 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     private Button buttonNextWeight;
     private View buttonIncreRep;
 
-    private int positionItemCurrentExcersise;
-    private int progressWeightCurrent;
-
     private boolean isListViewVisible;
 
-    private int positionItemCurrentTable;
 
 
     @Override
@@ -54,20 +48,19 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         listViewExcersise.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, getResources().getStringArray(R.array.excersises)));
         listViewExcersise.setOnItemClickListener(this);
         positionItem = -1;
-        positionItemCurrentExcersise = -1;
 
         lb = " " + getString(R.string.lb);
         textViewLoadedWeight = (TextView) findViewById(R.id.textViewLoadedWeight);
-        textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " 8" + lb);
 
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBarLoadedWeight);
-        seekBar.setOnSeekBarChangeListener(this);
-        progressWeight = 8;
-        progressWeightCurrent = 8;
+        weight = 0;
+
+        textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
+
 
         buttonStartEnd = (Button) findViewById(R.id.buttonStartEnd);
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
+
 
         buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
         buttonNextWeight.setOnClickListener(this);
@@ -83,7 +76,17 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
 
         isListViewVisible = false;
 
-        positionItemCurrentTable = 0;
+        findViewById(R.id.btn_key_0).setOnClickListener(this);
+        findViewById(R.id.btn_key_1).setOnClickListener(this);
+        findViewById(R.id.btn_key_2).setOnClickListener(this);
+        findViewById(R.id.btn_key_3).setOnClickListener(this);
+        findViewById(R.id.btn_key_4).setOnClickListener(this);
+        findViewById(R.id.btn_key_5).setOnClickListener(this);
+        findViewById(R.id.btn_key_6).setOnClickListener(this);
+        findViewById(R.id.btn_key_7).setOnClickListener(this);
+        findViewById(R.id.btn_key_8).setOnClickListener(this);
+        findViewById(R.id.btn_key_9).setOnClickListener(this);
+        findViewById(R.id.btn_key_clear).setOnClickListener(this);
 
 
     }
@@ -91,15 +94,13 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        listViewExcersise.setItemChecked(position, true);
-        positionItem = position;
-
         if (!isStart) {
-            if (positionItemCurrentTable > 0 && positionItem != positionItemCurrentExcersise) {
-                positionItemCurrentTable = 0;
-                adapterNegativePositive.setNewWeightInitial(progressWeight);
+            if (adapterNegativePositive.isValuesPlaced() && positionItem != position) {
+                adapterNegativePositive.setNewWeightInitial(weight);
             }
-            positionItemCurrentExcersise = positionItem;
+            positionItem = position;
+        } else {
+            listViewExcersise.setItemChecked(positionItem, true);
         }
 
     }
@@ -114,13 +115,16 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                     buttonNextWeight.setVisibility(View.GONE);
                     buttonIncreRep.setVisibility(View.GONE);
                     adapterNegativePositive.setClickable(true);
-                    listViewNegaPosi.setItemChecked(positionItemCurrentTable, false);
+                    listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), false);
                     isStart = false;
                 } else {
                     if (positionItem != -1) {
-
                         if (adapterNegativePositive.isFullTable()) {
+                            buttonStartEnd.setText(R.string.btn_title_exit);
+                            buttonNextWeight.setVisibility(View.VISIBLE);
+                            buttonIncreRep.setVisibility(View.VISIBLE);
                             initListDropset();
+                            isStart = true;
                         } else {
                             Toast.makeText(this, R.string.warning_message_full_table, Toast.LENGTH_SHORT).show();
                         }
@@ -136,83 +140,113 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                 incrementeRep();
                 break;
 
+
+            case R.id.btn_key_0:
+                valueWeight(0);
+                break;
+            case R.id.btn_key_1:
+                valueWeight(1);
+                break;
+            case R.id.btn_key_2:
+                valueWeight(2);
+                break;
+            case R.id.btn_key_3:
+                valueWeight(3);
+                break;
+            case R.id.btn_key_4:
+                valueWeight(4);
+                break;
+            case R.id.btn_key_5:
+                valueWeight(5);
+                break;
+            case R.id.btn_key_6:
+                valueWeight(6);
+                break;
+            case R.id.btn_key_7:
+                valueWeight(7);
+                break;
+            case R.id.btn_key_8:
+                valueWeight(8);
+                break;
+            case R.id.btn_key_9:
+                valueWeight(9);
+                break;
+            case R.id.btn_key_clear:
+                if (weight > 0) {
+                    weight = 0;
+                    textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
+                    if (adapterNegativePositive.isValuesPlaced()) {
+                        adapterNegativePositive.setNewWeightInitial(weight);
+                    } else {
+                        adapterNegativePositive.changeWeightInitial(weight);
+                    }
+                }
+                break;
+
         }
+
+    }
+
+
+    public void valueWeight(int num) {
+
+        if (!isStart) {
+            int weightAux;
+            if (weight > 0) {
+                weightAux = (weight * 10) + num;
+            } else {
+                if (num == 0) {
+                    return;
+                }
+                weightAux = num;
+            }
+
+            if (weightAux <= 720) {
+                weight = weightAux;
+                textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
+                if (adapterNegativePositive.isValuesPlaced()) {
+                    adapterNegativePositive.setNewWeightInitial(weight);
+                } else if (isListViewVisible) {
+                    adapterNegativePositive.changeWeightInitial(weight);
+                } else {
+                    adapterNegativePositive.changeWeightInvisibleInitial(weight);
+                    adapterNegativePositive.notifyDataSetChanged();
+                    isListViewVisible = true;
+                }
+            } else {
+                Toast.makeText(this, R.string.warning_message_weight, Toast.LENGTH_SHORT).show();
+            }
+        }
+
 
     }
 
     private void initListDropset() {
 
-        if (progressWeightCurrent != progressWeight || positionItemCurrentExcersise != positionItem) {
-            positionItemCurrentTable = 0;
-            adapterNegativePositive.setNewWeightInitial(progressWeight);
-            Toast.makeText(this, R.string.warning_message_full_table, Toast.LENGTH_SHORT).show();
-        } else {
-            if (positionItemCurrentTable == 2) {
-                positionItemCurrentTable = 0;
-                adapterNegativePositive.setPositionItemPositiveNegatives(positionItemCurrentTable);
-                adapterNegativePositive.clearRepetitionsCounts();
-            }
-            adapterNegativePositive.setClickable(false);
-            buttonStartEnd.setText(R.string.btn_title_exit);
-            buttonNextWeight.setVisibility(View.VISIBLE);
-            buttonIncreRep.setVisibility(View.VISIBLE);
-            listViewNegaPosi.setItemChecked(positionItemCurrentTable, true);
-            isStart = true;
+        if (adapterNegativePositive.getPositionItemPositiveNegatives() == 2) {
+            adapterNegativePositive.clearItemPosition();
+            adapterNegativePositive.clearRepetitionsCounts();
         }
-
+        adapterNegativePositive.setClickable(false);
+        listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), true);
     }
 
     public void nextWeight() {
-        if (isStart && positionItemCurrentTable < 2) {
-            positionItemCurrentTable++;
-            adapterNegativePositive.setPositionItemPositiveNegatives(positionItemCurrentTable);
-            listViewNegaPosi.setItemChecked(positionItemCurrentTable, true);
+        if (isStart && adapterNegativePositive.getPositionItemPositiveNegatives() < 2) {
+            adapterNegativePositive.incrementItemPosition();
+            listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), true);
         }
 
     }
 
     public void incrementeRep() {
 
-        if (positionItemCurrentTable >= listViewNegaPosi.getFirstVisiblePosition() && positionItemCurrentTable <= listViewNegaPosi.getLastVisiblePosition()) {
-            adapterNegativePositive.incrementRepetitions(positionItemCurrentTable);
+        if (adapterNegativePositive.getPositionItemPositiveNegatives() >= listViewNegaPosi.getFirstVisiblePosition()
+                && adapterNegativePositive.getPositionItemPositiveNegatives() <= listViewNegaPosi.getLastVisiblePosition()) {
+            adapterNegativePositive.incrementRepetitions();
         } else {
-            adapterNegativePositive.incrementRepetitionsInvisible(positionItemCurrentTable);
+            adapterNegativePositive.incrementRepetitionsInvisible();
         }
-
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-        textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + (progress + 8) + lb);
-        this.progressWeight = progress + 8;
-
-        if (!isStart) {
-            progressWeightCurrent = progressWeight;
-            if (positionItemCurrentTable > 0 || adapterNegativePositive.isValuesPlaced()) {
-                positionItemCurrentTable = 0;
-                adapterNegativePositive.setNewWeightInitial(progressWeight);
-            } else if (listViewNegaPosi.getFirstVisiblePosition() == 0) {
-                if (isListViewVisible) {
-                    adapterNegativePositive.changeWeightInitial(progressWeight);
-                } else {
-                    adapterNegativePositive.changeWeightInvisibleInitial(progressWeight);
-                    adapterNegativePositive.notifyDataSetChanged();
-                    isListViewVisible = true;
-                }
-            } else {
-                adapterNegativePositive.changeWeightInvisibleInitial(progressWeight);
-            }
-        }
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
 
@@ -230,9 +264,10 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     }
 
     @Override
-    public void onDialogoPlaceWeight(int minWeight, int maxWeight) {
-        DialogSeekBarWeight dialogSeekBarWeight = DialogSeekBarWeight.newInstance(minWeight, maxWeight);
-        dialogSeekBarWeight.show(getFragmentManager(), "");
+    public void onDialogoInputWeight(int minWeight, int maxWeight) {
+
+        DialogWeight dialogWeight = DialogWeight.newInstance(minWeight, maxWeight);
+        dialogWeight.show(getFragmentManager(), "dia_wei");
     }
 
     @Override

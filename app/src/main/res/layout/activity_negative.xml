@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingBottom="12dp"
+        android:paddingBottom="4dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         tools:ignore="UselessParent">
@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bac_title_selec_excer"
-            android:padding="12dp"
+            android:padding="8dp"
+            android:singleLine="true"
             android:text="@string/title_select_excersise"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/grey_white"
@@ -33,13 +34,14 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/spaceCenter"
             android:layout_below="@+id/textView"
-            android:layout_marginBottom="8dp"
             android:choiceMode="singleChoice" />
 
         <Space
             android:id="@+id/spaceCenter"
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
+            android:layout_height="80dp"
+            android:clickable="false"
+            android:focusable="false"
             android:layout_centerVertical="true" />
 
 
@@ -47,8 +49,8 @@
             android:id="@+id/scrollViewLoadedWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/buttonStartEnd"
-            android:layout_below="@+id/spaceCenter">
+            android:layout_alignTop="@id/spaceCenter"
+            android:layout_below="@id/spaceCenter">
 
 
             <RelativeLayout
@@ -60,44 +62,186 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bac_title_selec_excer"
-                    android:padding="12dp"
+                    android:padding="8dp"
                     android:text="@string/title_loaded_weight"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/grey_white"
                     android:textStyle="bold" />
 
-                <SeekBar
-                    android:id="@+id/seekBarLoadedWeight"
+                <TextView
+                    android:id="@+id/textViewMaxWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewLoadedWeight"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:max="719" />
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:text="@string/title_loaded_max_weight"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
 
-
-                <TextView
+                <TableLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/seekBarLoadedWeight"
-                    android:layout_below="@id/seekBarLoadedWeight"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/min_loaded_weight"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    tools:ignore="RtlHardcoded" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/textViewMaxWeight"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="4dp"
+                    android:stretchColumns="*"
+                    tools:ignore="RtlHardcoded">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/seekBarLoadedWeight"
-                    android:layout_below="@id/seekBarLoadedWeight"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/max_loaded_weight"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    tools:ignore="RtlHardcoded" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btn_key_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/key_1"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_2"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_3"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btn_key_4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_4"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_5"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_6"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btn_key_7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_7"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_8"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_8"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_9"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <Button
+                            android:id="@+id/btn_key_0"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_0"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_clear"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:layout_span="2"
+                            android:text="@string/key_clear"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                    </TableRow>
+
+
+                </TableLayout>
+
 
             </RelativeLayout>
 
@@ -110,11 +254,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@drawable/btn_background"
-            android:padding="20dp"
+            android:padding="16dp"
             android:text="@string/btn_title_start"
             android:textColor="@android:color/black"
             android:textSize="28sp"
             android:textStyle="bold" />
+
+
     </RelativeLayout>
 
 
@@ -122,40 +268,38 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:padding="12dp">
+        android:paddingBottom="4dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="8dp"
+        android:paddingRight="12dp">
 
         <TableLayout
             android:id="@+id/tableLayoutTitles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white_grey_title">
+            android:stretchColumns="*">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
                 tools:ignore="UselessParent">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_item_table"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_title_table"
                     android:gravity="center"
                     android:padding="12dp"
-                    android:singleLine="true"
                     android:text="@string/title_table_weight"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_item_table"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_title_table"
                     android:gravity="center"
                     android:padding="12dp"
-                    android:singleLine="true"
                     android:text="@string/title_table_num_rep"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold" />

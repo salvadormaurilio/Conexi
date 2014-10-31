@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/select_item_dropset">
+    android:background="@drawable/select_item_dropset"
+    android:stretchColumns="*">
 
-    <TableRow
+<TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3"
         tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textViewNumWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/background_item_table"
             android:gravity="center"
             android:padding="12dp"
@@ -28,7 +27,6 @@
             android:id="@+id/textViewWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/background_item_table"
             android:gravity="center"
             android:padding="12dp"
@@ -41,7 +39,6 @@
             android:id="@+id/textViewNumRep"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/background_item_table"
             android:gravity="center"
             android:padding="12dp"

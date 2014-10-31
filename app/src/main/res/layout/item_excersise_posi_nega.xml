@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:stretchColumns="*"
     android:background="@drawable/select_item_negative_positive">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="4"
         tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textViewNumWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/background_item_table"
             android:gravity="center"
             android:padding="12dp"
@@ -28,7 +27,6 @@
             android:id="@+id/textViewNegativeWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/textview_background_posi_nega"
             android:gravity="center"
             android:longClickable="false"
@@ -42,7 +40,6 @@
             android:id="@+id/textViewPositiveWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/textview_background_posi_nega"
             android:gravity="center"
             android:longClickable="false"
@@ -56,7 +53,6 @@
             android:id="@+id/textViewNumRep"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/background_item_table"
             android:gravity="center"
             android:padding="12dp"

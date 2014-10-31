@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="excersises">
-        <item>Beach Press</item>
+        <item>Bench Press</item>
         <item>Shoulder Press</item>
         <item>Deadlift</item>
         <item>Squat</item>
-        <item>Stading Calf</item>
+        <item>Standing Calf</item>
     </string-array>
 
     <string-array name="weights">

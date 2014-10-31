@@ -23,7 +23,6 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
     private LayoutInflater inflater;
 
     private String[] arrayWeights;
-    private String weight;
     private String repetition;
     private String lb;
 
@@ -34,15 +33,13 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
 
     public AdapterDropsetAndNegative(Context context, int typeItem) {
 
-
         itemDropsets = new ArrayList<ItemDropset>();
-        itemDropsets.add(new ItemDropset(1));
+        itemDropsets.add(new ItemDropset(0));
         inflater = LayoutInflater.from(context);
         this.typeItem = typeItem;
 
         if (this.typeItem == 1) {
             arrayWeights = context.getResources().getStringArray(R.array.weights);
-            weight = " " + context.getString(R.string.weight);
         }
 
         repetition = " " + context.getString(R.string.repetition);
@@ -73,7 +70,7 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
         }
 
         if (typeItem == 1) {
-            viewHolderDropset.getTextViewNumWeight().setText(arrayWeights[position] + weight);
+            viewHolderDropset.getTextViewNumWeight().setText(arrayWeights[position]);
         }
 
         viewHolderDropset.getTextViewWeight().setText(itemDropsets.get(position).getWeight() + lb);
@@ -129,6 +126,17 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
         itemDropsets.clear();
         itemDropsets.add(new ItemDropset(weight));
         notifyDataSetChanged();
+    }
+
+
+    public boolean getRepetitionsCounts() {
+        return itemDropsets.get(0).getRepetitionsCounts() > 0;
+
+    }
+
+    public void clearReptitionsCounts(){
+        itemDropsets.get(0).initilizeRepetitionsCounts();
+        textViewRepetition.setText(itemDropsets.get(itemDropsets.size() - 1).getRepetitionsCounts() + repetition);
     }
 
 
