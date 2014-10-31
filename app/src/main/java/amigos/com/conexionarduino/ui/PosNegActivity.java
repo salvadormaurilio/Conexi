@@ -35,7 +35,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
 
     private boolean isListViewVisible;
 
-
+    private boolean wasStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +88,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         findViewById(R.id.btn_key_9).setOnClickListener(this);
         findViewById(R.id.btn_key_clear).setOnClickListener(this);
 
+        wasStart = false;
 
     }
 
@@ -95,8 +96,10 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         if (!isStart) {
-            if (adapterNegativePositive.isValuesPlaced() && positionItem != position) {
+            if (wasStart && positionItem != position) {
                 adapterNegativePositive.setNewWeightInitial(weight);
+                wasStart = false;
+
             }
             positionItem = position;
         } else {
@@ -177,6 +180,8 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                     textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
                     if (adapterNegativePositive.isValuesPlaced()) {
                         adapterNegativePositive.setNewWeightInitial(weight);
+                        wasStart = false;
+
                     } else {
                         adapterNegativePositive.changeWeightInitial(weight);
                     }
@@ -206,6 +211,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                 textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
                 if (adapterNegativePositive.isValuesPlaced()) {
                     adapterNegativePositive.setNewWeightInitial(weight);
+                    wasStart = false;
                 } else if (isListViewVisible) {
                     adapterNegativePositive.changeWeightInitial(weight);
                 } else {
@@ -229,6 +235,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         }
         adapterNegativePositive.setClickable(false);
         listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), true);
+        wasStart = true;
     }
 
     public void nextWeight() {
