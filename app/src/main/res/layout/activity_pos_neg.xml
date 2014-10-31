@@ -23,7 +23,7 @@
             android:background="@drawable/bac_title_selec_excer"
             android:padding="8dp"
             android:singleLine="true"
-            android:text="@string/title_select_excersise"
+            android:text="@string/title_select_excercise"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/grey_white"
             android:textStyle="bold" />
@@ -97,34 +97,34 @@
                         android:layout_height="match_parent">
 
                         <Button
-                            android:id="@+id/btn_key_1"
+                            android:id="@+id/btn_key_7"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="@string/key_1"
-                            android:textStyle="bold"
-                            tools:ignore="ButtonStyle" />
-
-                        <Button
-                            android:id="@+id/btn_key_2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/btn_keys_background_"
-                            android:singleLine="true"
-                            android:text="@string/key_2"
+                            android:text="@string/key_7"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
 
                         <Button
-                            android:id="@+id/btn_key_3"
+                            android:id="@+id/btn_key_8"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_3"
+                            android:text="@string/key_8"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_9"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
@@ -175,40 +175,39 @@
                         android:layout_height="match_parent">
 
                         <Button
-                            android:id="@+id/btn_key_7"
+                            android:id="@+id/btn_key_1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_7"
+                            android:text="@string/key_1"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
 
                         <Button
-                            android:id="@+id/btn_key_8"
+                            android:id="@+id/btn_key_2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_8"
+                            android:text="@string/key_2"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
 
                         <Button
-                            android:id="@+id/btn_key_9"
+                            android:id="@+id/btn_key_3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_9"
+                            android:text="@string/key_3"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
 
                     </TableRow>
-
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">

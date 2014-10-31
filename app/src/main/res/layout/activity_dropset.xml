@@ -23,7 +23,7 @@
             android:background="@drawable/bac_title_selec_excer"
             android:padding="8dp"
             android:singleLine="true"
-            android:text="@string/title_select_excersise"
+            android:text="@string/title_select_excercise"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/grey_white"
             android:textStyle="bold" />
@@ -40,9 +40,9 @@
             android:id="@+id/spaceCenter"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
+            android:layout_centerVertical="true"
             android:clickable="false"
-            android:focusable="false"
-            android:layout_centerVertical="true" />
+            android:focusable="false" />
 
 
         <ScrollView
@@ -73,8 +73,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewLoadedWeight"
-                    android:gravity="center"
                     android:layout_margin="8dp"
+                    android:gravity="center"
                     android:text="@string/title_loaded_max_weight"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
@@ -97,34 +97,34 @@
                         android:layout_height="match_parent">
 
                         <Button
-                            android:id="@+id/btn_key_1"
+                            android:id="@+id/btn_key_7"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="@string/key_1"
-                            android:textStyle="bold"
-                            tools:ignore="ButtonStyle" />
-
-                        <Button
-                            android:id="@+id/btn_key_2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/btn_keys_background_"
-                            android:singleLine="true"
-                            android:text="@string/key_2"
+                            android:text="@string/key_7"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
 
                         <Button
-                            android:id="@+id/btn_key_3"
+                            android:id="@+id/btn_key_8"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_3"
+                            android:text="@string/key_8"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textStyle="bold"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/btn_key_9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_keys_background_"
+                            android:singleLine="true"
+                            android:text="@string/key_9"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
@@ -175,34 +175,34 @@
                         android:layout_height="match_parent">
 
                         <Button
-                            android:id="@+id/btn_key_7"
+                            android:id="@+id/btn_key_1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_7"
+                            android:text="@string/key_1"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
 
                         <Button
-                            android:id="@+id/btn_key_8"
+                            android:id="@+id/btn_key_2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_8"
+                            android:text="@string/key_2"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
 
                         <Button
-                            android:id="@+id/btn_key_9"
+                            android:id="@+id/btn_key_3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:text="@string/key_9"
+                            android:text="@string/key_3"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
                             tools:ignore="ButtonStyle" />
@@ -229,9 +229,9 @@
                             android:id="@+id/btn_key_clear"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_span="2"
                             android:background="@drawable/btn_keys_background_"
                             android:singleLine="true"
-                            android:layout_span="2"
                             android:text="@string/key_clear"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textStyle="bold"
@@ -270,8 +270,8 @@
         android:layout_weight="1"
         android:paddingBottom="4dp"
         android:paddingLeft="12dp"
-        android:paddingTop="8dp"
-        android:paddingRight="12dp">
+        android:paddingRight="12dp"
+        android:paddingTop="8dp">
 
         <TableLayout
             android:id="@+id/tableLayoutTitles"
@@ -342,8 +342,8 @@
                 android:text="@string/btn_title_next_weight"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
-                android:visibility="gone"
                 android:textStyle="bold"
+                android:visibility="gone"
                 tools:ignore="ButtonStyle" />
 
             <Button

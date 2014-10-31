@@ -10,13 +10,13 @@
     <string name="title_activity_dropset">Dropset</string>
     <string name="title_activity_pos_neg">Positive / Negative</string>
     <string name="title_activity_negative">Negative</string>
-    <string name="title_select_excersise">SELECT EXCERSISE</string>
+    <string name="title_select_excercise">SELECT EXCERCISE</string>
     <string name="title_loaded_weight">Enter Loaded Weight:</string>
     <string name="min_loaded_weight">1 lb</string>
     <string name="max_loaded_weight">720 lb</string>
     <string name="btn_title_start">Start</string>
     <string name="btn_title_exit">Exit</string>
-    <string name="select_excersise">Seleccione un Ejercicio</string>
+    <string name="select_excercise">Seleccione un Ejercicio</string>
     <string name="repetition">Rep</string>
     <string name="weight">Weigth</string>
     <string name="lb">lb</string>

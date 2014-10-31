@@ -68,44 +68,46 @@
             android:stretchColumns="*"
             tools:ignore="RtlHardcoded">
 
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/btn_dia_key_1"
+                    android:id="@+id/btn_dia_key_7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_keys_background_"
                     android:singleLine="true"
-                    android:text="@string/key_1"
+                    android:text="@string/key_7"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle" />
 
                 <Button
-                    android:id="@+id/btn_dia_key_2"
+                    android:id="@+id/btn_dia_key_8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_keys_background_"
                     android:singleLine="true"
-                    android:text="@string/key_2"
+                    android:text="@string/key_8"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle" />
 
                 <Button
-                    android:id="@+id/btn_dia_key_3"
+                    android:id="@+id/btn_dia_key_9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_keys_background_"
                     android:singleLine="true"
-                    android:text="@string/key_3"
+                    android:text="@string/key_9"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle" />
 
             </TableRow>
+
 
             <TableRow
                 android:layout_width="match_parent"
@@ -151,39 +153,40 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/btn_dia_key_7"
+                    android:id="@+id/btn_dia_key_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_keys_background_"
                     android:singleLine="true"
-                    android:text="@string/key_7"
+                    android:text="@string/key_1"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle" />
 
                 <Button
-                    android:id="@+id/btn_dia_key_8"
+                    android:id="@+id/btn_dia_key_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_keys_background_"
                     android:singleLine="true"
-                    android:text="@string/key_8"
+                    android:text="@string/key_2"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle" />
 
                 <Button
-                    android:id="@+id/btn_dia_key_9"
+                    android:id="@+id/btn_dia_key_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_keys_background_"
                     android:singleLine="true"
-                    android:text="@string/key_9"
+                    android:text="@string/key_3"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     tools:ignore="ButtonStyle" />
 
             </TableRow>
+
 
             <TableRow
                 android:layout_width="match_parent"
