@@ -49,8 +49,8 @@
             android:id="@+id/scrollViewLoadedWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/spaceCenter"
-            android:layout_below="@id/spaceCenter">
+            android:layout_above="@+id/buttonStartEnd"
+            android:layout_alignTop="@+id/spaceCenter">
 
 
             <RelativeLayout
@@ -290,7 +290,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/background_title_table"
                     android:gravity="center"
                     android:padding="12dp"
@@ -301,7 +301,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/background_title_table"
                     android:gravity="center"
                     android:padding="12dp"
@@ -316,7 +316,6 @@
                     android:background="@drawable/background_title_table"
                     android:gravity="center"
                     android:padding="12dp"
-                    android:singleLine="true"
                     android:text="@string/title_table_num_rep"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold" />
