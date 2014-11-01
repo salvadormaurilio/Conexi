@@ -260,8 +260,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -271,9 +270,9 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     }
 
     @Override
-    public void onDialogoInputWeight(int minWeight, int maxWeight) {
+    public void onDialogoInputWeight(int minWeight, int maxWeight, boolean isNegative) {
 
-        DialogWeight dialogWeight = DialogWeight.newInstance(minWeight, maxWeight);
+        DialogWeight dialogWeight = DialogWeight.newInstance(minWeight, maxWeight, isNegative);
         dialogWeight.show(getFragmentManager(), "dia_wei");
     }
 

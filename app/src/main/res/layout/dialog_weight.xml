@@ -24,34 +24,19 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewMinDialogWeight"
+            android:id="@+id/textViewMinMaxDialogWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_below="@+id/textViewDialogLoadedWeight"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
             android:text="@string/title_loaded_min_weight_dia"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold"
             tools:ignore="RtlHardcoded" />
 
 
-        <TextView
-            android:id="@+id/textViewMaxDialogWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/textViewDialogLoadedWeight"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/title_loaded_max_weight_dia"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold"
-            tools:ignore="RtlHardcoded" />
 
 
         <TableLayout
@@ -59,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textViewMinDialogWeight"
+            android:layout_below="@+id/textViewMinMaxDialogWeight"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="32dp"

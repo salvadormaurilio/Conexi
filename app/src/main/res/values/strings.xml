@@ -5,10 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="tittle_select_training">Select Training System</string>
     <string name="btn_title_dropset">Dropset</string>
-    <string name="btn_title_pos_neg">Positive / Negative</string>
+    <string name="btn_title_pos_neg">Negative / Positive</string>
     <string name="btn_title_nega">Negative</string>
     <string name="title_activity_dropset">Dropset</string>
-    <string name="title_activity_pos_neg">Positive / Negative</string>
+    <string name="title_activity_pos_neg">Negative / Positive</string>
     <string name="title_activity_negative">Negative</string>
     <string name="title_select_excercise">SELECT EXCERCISE</string>
     <string name="title_loaded_weight">Enter Loaded Weight:</string>
@@ -45,12 +45,14 @@
     <string name="key_9">9</string>
     <string name="key_0">0</string>
     <string name="key_clear">Clear</string>
-    <string name="warning_message_weight">Debe haber un peso menor o igual a 720 lb</string>
-    <string name="warning_message_weight_max_dia">Debe haber un peso menor o igual a </string>
-    <string name="warning_message_weight_min_dia">Debe haber un peso mayor o igual a </string>
-    <string name="warning_message_weight_min">Debe haber un peso mayor o 0</string>
-    <string name="warning_message_weight_min_neg_pos">Debe haber un peso mayor o igual a 8 lb</string>
-    <string name="title_loaded_max_weight_dia">Max. Weight</string>
-    <string name="title_loaded_min_weight_dia">Min. Weight</string>
+    <string name="warning_message_weight">Coloque un peso menor o igual a 720 lb</string>
+    <string name="warning_message_weight_max_dia">Coloque un peso menor o igual a </string>
+    <string name="warning_message_weight_min_dia">Coloque un peso mayor o igual a </string>
+    <string name="warning_message_weight_min">Coloque un peso un peso mayor a 0</string>
+    <string name="warning_message_weight_min_pos">Coloque un peso mayor o igual a 2 lb</string>
+    <string name="warning_message_weight_min_neg">Coloque un peso negativo en la celda anterior mayor o igual a 2 lb</string>
+    <string name="title_loaded_max_weight_dia">Max. Allowable Weight</string>
+    <string name="title_loaded_min_weight_dia">Min. Allowable Weight</string>
+    <string name="title_loaded_weight_dia">Enter Weight:</string>
 
 </resources>

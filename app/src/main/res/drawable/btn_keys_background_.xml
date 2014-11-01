@@ -3,19 +3,19 @@
 
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/brown_black"/>
+            <solid android:color="@color/orange_black"/>
             <stroke android:width="2dp" android:color="@android:color/white" />
         </shape>
     </item>
     <item android:state_focused="true">
         <shape>
-            <solid android:color="@color/brown_black"/>
+            <solid android:color="@color/orange_black"/>
             <stroke android:width="2dp" android:color="@android:color/white" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="@color/brown_white"/>
+            <solid android:color="@color/orange_white"/>
             <stroke android:width="2dp" android:color="@android:color/white" />
         </shape>
     </item>

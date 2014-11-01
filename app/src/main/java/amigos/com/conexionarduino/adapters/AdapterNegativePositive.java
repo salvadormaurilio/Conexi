@@ -129,12 +129,12 @@ public class AdapterNegativePositive extends BaseAdapter {
                     switch (v.getId()) {
                         case R.id.textViewNegativeWeight:
 
-                            if (itemPositiveNegatives.get(position - 1).getWeightNegative() > -1) {
+                            if (itemPositiveNegatives.get(position - 1).getWeightNegative() >=2) {
                                 currentPosition = position;
                                 idTextViewWeight = R.id.textViewNegativeWeight;
-                                placeWeightListener.onDialogoInputWeight(8 - position * 2, itemPositiveNegatives.get(position - 1).getWeightNegative() - 1);
+                                placeWeightListener.onDialogoInputWeight(2, itemPositiveNegatives.get(position - 1).getWeightNegative(), true);
                             } else {
-                                Toast.makeText(context, R.string.warning_message_weight_negative, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.warning_message_weight_min_neg, Toast.LENGTH_SHORT).show();
                             }
 
                             break;
@@ -142,16 +142,16 @@ public class AdapterNegativePositive extends BaseAdapter {
 
                             if (itemPositiveNegatives.get(position).getWeightNegative() > -1) {
 
-                                if (position > 0 || itemPositiveNegatives.get(0).getWeightNegative() >= 8) {
+                                if (position > 0 || itemPositiveNegatives.get(0).getWeightNegative() >= 2) {
                                     currentPosition = position;
                                     idTextViewWeight = R.id.textViewPositiveWeight;
-                                    placeWeightListener.onDialogoInputWeight(1, itemPositiveNegatives.get(position).getWeightNegative() / 2);
+                                    placeWeightListener.onDialogoInputWeight(itemPositiveNegatives.get(position).getWeightNegative() / 2, 720, false);
                                 } else {
-                                    Toast.makeText(context, R.string.warning_message_weight_min_neg_pos, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, R.string.warning_message_weight_min_pos, Toast.LENGTH_SHORT).show();
                                 }
 
                             } else {
-                                Toast.makeText(context, R.string.warning_message_weight_min_neg_pos, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.warning_message_weight_min_pos, Toast.LENGTH_SHORT).show();
                             }
                             break;
                     }

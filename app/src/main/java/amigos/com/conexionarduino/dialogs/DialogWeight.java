@@ -20,6 +20,7 @@ public class DialogWeight extends DialogFragment implements View.OnClickListener
 
     private static final String MIN_WEIGHT = "min_weight";
     private static final String MAX_WEIGHT = "max_weight";
+    private static final String ISNEGATIVE = "is_negative";
 
     PlaceWeightListener placeWeightListener;
     private TextView textViewDialogLoadedWeight;
@@ -32,11 +33,12 @@ public class DialogWeight extends DialogFragment implements View.OnClickListener
     private int weight;
 
 
-    public static DialogWeight newInstance(int minWeight, int maxWight) {
+    public static DialogWeight newInstance(int minWeight, int maxWight, boolean isNegative) {
         DialogWeight dialogFragment = new DialogWeight();
         Bundle bundle = new Bundle();
         bundle.putInt(MIN_WEIGHT, minWeight);
         bundle.putInt(MAX_WEIGHT, maxWight);
+        bundle.putBoolean(ISNEGATIVE, isNegative);
         dialogFragment.setArguments(bundle);
         return dialogFragment;
     }
@@ -59,7 +61,7 @@ public class DialogWeight extends DialogFragment implements View.OnClickListener
         builder.setView(view);
 
         lb = " " + getString(R.string.lb);
-        loadedWeight = getString(R.string.title_loaded_weight);
+        loadedWeight = getString(R.string.title_loaded_weight_dia);
 
         minWeight = getArguments().getInt(MIN_WEIGHT);
         maxWeight = getArguments().getInt(MAX_WEIGHT);
@@ -67,10 +69,9 @@ public class DialogWeight extends DialogFragment implements View.OnClickListener
         textViewDialogLoadedWeight = (TextView) view.findViewById(R.id.textViewDialogLoadedWeight);
         textViewDialogLoadedWeight.setText(loadedWeight + " " + weight + lb);
 
-        TextView textViewDialogMinWeight = (TextView) view.findViewById(R.id.textViewMinDialogWeight);
-        TextView textViewDialogMaxWeight = (TextView) view.findViewById(R.id.textViewMaxDialogWeight);
-        textViewDialogMinWeight.setText(getString(R.string.title_loaded_min_weight_dia) + " " + minWeight + lb);
-        textViewDialogMaxWeight.setText(getString(R.string.title_loaded_max_weight_dia) + " " + maxWeight + lb);
+        TextView textViewDialogMinMaxWeight = (TextView) view.findViewById(R.id.textViewMinMaxDialogWeight);
+        textViewDialogMinMaxWeight.setText((getArguments().getBoolean(ISNEGATIVE) ? getString(R.string.title_loaded_max_weight_dia) + " " + maxWeight :
+                getString(R.string.title_loaded_min_weight_dia) + " " + minWeight) + lb);
 
 
         view.findViewById(R.id.btn_dia_key_0).setOnClickListener(this);
@@ -94,7 +95,7 @@ public class DialogWeight extends DialogFragment implements View.OnClickListener
                     placeWeightListener.onNewWight(weight);
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.warning_message_weight_min_dia) + " " + minWeight + lb, Toast.LENGTH_SHORT).show();
-                    DialogWeight dialogWeight = DialogWeight.newInstance(minWeight, maxWeight);
+                    DialogWeight dialogWeight = DialogWeight.newInstance(minWeight, maxWeight, getArguments().getBoolean(ISNEGATIVE));
                     dialogWeight.show(getFragmentManager(), "dia_wei");
                 }
 
