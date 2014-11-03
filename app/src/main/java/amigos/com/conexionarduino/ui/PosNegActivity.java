@@ -132,7 +132,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                             Toast.makeText(this, R.string.warning_message_full_table, Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(this, R.string.select_excercise, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.select_exercise, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

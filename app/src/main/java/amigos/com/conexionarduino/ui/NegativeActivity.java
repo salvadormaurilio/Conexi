@@ -111,7 +111,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                         initListDropset();
                         isStart = true;
                     } else {
-                        Toast.makeText(this, R.string.select_excercise, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.select_exercise, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
