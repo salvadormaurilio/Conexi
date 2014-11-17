@@ -1,7 +1,12 @@
 package amigos.com.conexionarduino.ui;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +18,7 @@ import android.widget.Toast;
 
 import amigos.com.conexionarduino.R;
 import amigos.com.conexionarduino.adapters.AdapterDropsetAndNegative;
+import amigos.com.conexionarduino.util.ConstantsService;
 
 
 public class NegativeActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
@@ -75,7 +81,27 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         findViewById(R.id.btn_key_9).setOnClickListener(this);
         findViewById(R.id.btn_key_clear).setOnClickListener(this);
 
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConstantsService.DATA_RECEIVED_INTENT);
+        filter.addAction(ConstantsService.DATA_SENT_INTERNAL_INTENT);
+        filter.addAction(ConstantsService.USB_DEVICE_DETACHED);
+        registerReceiver(mReceiver, filter);
     }
+
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
+            if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
+                final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
+            } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
+                Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    };
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -230,5 +256,11 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
 
 }

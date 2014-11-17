@@ -1,7 +1,12 @@
 package amigos.com.conexionarduino.ui;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +19,7 @@ import android.widget.Toast;
 import amigos.com.conexionarduino.R;
 import amigos.com.conexionarduino.adapters.AdapterNegativePositive;
 import amigos.com.conexionarduino.dialogs.DialogWeight;
+import amigos.com.conexionarduino.util.ConstantsService;
 import amigos.com.conexionarduino.util.PlaceWeightListener;
 
 
@@ -90,7 +96,27 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
 
         wasStart = false;
 
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConstantsService.DATA_RECEIVED_INTENT);
+        filter.addAction(ConstantsService.DATA_SENT_INTERNAL_INTENT);
+        filter.addAction(ConstantsService.USB_DEVICE_DETACHED);
+        registerReceiver(mReceiver, filter);
+
     }
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
+            if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
+                final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
+            } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
+                Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    };
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -279,5 +305,12 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     @Override
     public void onNewWight(int weight) {
         adapterNegativePositive.setWeight(weight);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
     }
 }
