@@ -18,10 +18,11 @@ import android.widget.Toast;
 
 import amigos.com.conexionarduino.R;
 import amigos.com.conexionarduino.adapters.AdapterDropsetAndNegative;
+import amigos.com.conexionarduino.dialogs.DialogExit;
 import amigos.com.conexionarduino.util.ConstantsService;
 
 
-public class NegativeActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class NegativeActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener, DialogExit.OnListenerExit {
 
     private ListView listViewExcersise;
     private TextView textViewLoadedWeight;
@@ -34,7 +35,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     private ListView listViewNegative;
     private AdapterDropsetAndNegative adapterDropsetAndNegative;
 
-    private View buttonIncreRep;
+//    private Button buttonIncreRep;
 
     private boolean isListViewVisible;
 
@@ -60,8 +61,8 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
 
-        buttonIncreRep = findViewById(R.id.buttonIncreRep);
-        buttonIncreRep.setOnClickListener(this);
+//        buttonIncreRep = findViewById(R.id.buttonIncreRep);
+//        buttonIncreRep.setOnClickListener(this);
 
         listViewNegative = (ListView) findViewById(R.id.listViewTable);
         adapterDropsetAndNegative = new AdapterDropsetAndNegative(this, 2);
@@ -96,6 +97,11 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
             if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
             if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
                 final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
+
+                if (data[0] == 2) {
+                    incrementeRep();
+                }
+
             } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
                 Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
                 finish();
@@ -124,7 +130,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
             case R.id.buttonStartEnd:
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
-                    buttonIncreRep.setVisibility(View.GONE);
+//                    buttonIncreRep.setVisibility(View.GONE);
                     listViewNegative.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
                     isStart = false;
                 } else {
@@ -133,7 +139,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                     }
                     else if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
-                        buttonIncreRep.setVisibility(View.VISIBLE);
+//                        buttonIncreRep.setVisibility(View.VISIBLE);
                         initListDropset();
                         isStart = true;
                     } else {
@@ -141,9 +147,9 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                     }
                 }
                 break;
-            case R.id.buttonIncreRep:
-                incrementeRep();
-                break;
+//            case R.id.buttonIncreRep:
+//                incrementeRep();
+//                break;
 
             case R.id.btn_key_0:
                 valueWeight(0);
@@ -227,9 +233,29 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     private void initListDropset() {
         if (adapterDropsetAndNegative.getRepetitionsCounts()) {
             adapterDropsetAndNegative.clearReptitionsCounts();
+
         }
         listViewNegative.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
         isListViewVisible = true;
+
+        sendData(new byte[]{0});
+        sendData(new byte[]{(byte) positionItem});
+        int auxWeight = weight;
+
+        while (auxWeight > 127) {
+            sendData(new byte[]{127});
+            auxWeight -= 127;
+        }
+        sendData(new byte[]{(byte) auxWeight});
+        sendData(new byte[]{0});
+
+    }
+
+    private void sendData(byte[] data) {
+
+        Intent intent = new Intent(ConstantsService.SEND_DATA_INTENT);
+        intent.putExtra(ConstantsService.DATA_EXTRA, data);
+        sendBroadcast(intent);
 
     }
 
@@ -242,6 +268,26 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isStart) {
+            DialogExit dialogExit = new DialogExit();
+            dialogExit.show(getFragmentManager(), null);
+        } else {
+            sendData(new byte[]{3});
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onListenerExit() {
+        sendData(new byte[]{3});
+        sendData(new byte[]{3});
+        finish();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
