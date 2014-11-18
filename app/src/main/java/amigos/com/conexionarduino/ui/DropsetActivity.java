@@ -18,10 +18,11 @@ import android.widget.Toast;
 
 import amigos.com.conexionarduino.R;
 import amigos.com.conexionarduino.adapters.AdapterDropsetAndNegative;
+import amigos.com.conexionarduino.dialogs.DialogExit;
 import amigos.com.conexionarduino.util.ConstantsService;
 
 
-public class DropsetActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class DropsetActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener, DialogExit.OnListenerExit {
 
     private ListView listViewExcersise;
     private TextView textViewLoadedWeight;
@@ -34,10 +35,12 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     private ListView listViewDropset;
     private AdapterDropsetAndNegative adapterDropsetAndNegative;
 
-    private Button buttonNextWeight;
-    private View buttonIncreRep;
+//    private Button buttonNextWeight;
+//    private Button buttonIncreRep;
 
     private boolean isListViewVisible;
+
+    private boolean isStartExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +64,11 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
 
-        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
-        buttonNextWeight.setOnClickListener(this);
-
-        buttonIncreRep = findViewById(R.id.buttonIncreRep);
-        buttonIncreRep.setOnClickListener(this);
+//        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
+//        buttonNextWeight.setOnClickListener(this);
+//
+//        buttonIncreRep = findViewById(R.id.buttonIncreRep);
+//        buttonIncreRep.setOnClickListener(this);
 
         listViewDropset = (ListView) findViewById(R.id.listViewTable);
 
@@ -73,6 +76,8 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         listViewDropset.setAdapter(adapterDropsetAndNegative);
 
         isListViewVisible = false;
+
+        isStartExercise = false;
 
         findViewById(R.id.btn_key_0).setOnClickListener(this);
         findViewById(R.id.btn_key_1).setOnClickListener(this);
@@ -96,17 +101,26 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     }
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
             if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
                 final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
+
+                if (data[0] == 1) {
+                    nextWeight();
+                } else if (data[0] == 2) {
+                    incrementeRep();
+                }
+
             } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
                 Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
                 finish();
             }
         }
+
     };
 
 
@@ -116,6 +130,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         if (!isStart) {
             if ((adapterDropsetAndNegative.getCount() > 0 || adapterDropsetAndNegative.getRepetitionsCounts()) && positionItem != position) {
                 adapterDropsetAndNegative.setNewWeight(weight);
+                isStartExercise = false;
             }
             positionItem = position;
         } else {
@@ -131,8 +146,8 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
             case R.id.buttonStartEnd:
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
-                    buttonNextWeight.setVisibility(View.GONE);
-                    buttonIncreRep.setVisibility(View.GONE);
+//                    buttonNextWeight.setVisibility(View.GONE);
+//                    buttonIncreRep.setVisibility(View.GONE);
                     listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
                     isStart = false;
                 } else {
@@ -140,21 +155,19 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
                         Toast.makeText(this, R.string.warning_message_weight_min, Toast.LENGTH_SHORT).show();
                     } else if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
-                        buttonNextWeight.setVisibility(View.VISIBLE);
-                        buttonIncreRep.setVisibility(View.VISIBLE);
-                        initListDropset();
+//                        buttonNextWeight.setVisibility(View.VISIBLE);
+//                        buttonIncreRep.setVisibility(View.VISIBLE);
                         isStart = true;
+                        initListDropset();
                     } else {
                         Toast.makeText(this, R.string.select_exercise, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
-            case R.id.buttonNextWeight:
-                nextWeight();
-                break;
-            case R.id.buttonIncreRep:
-                incrementeRep();
-                break;
+//            case R.id.buttonNextWeight:
+//                break;
+//            case R.id.buttonIncreRep:
+//                break;
 
             case R.id.btn_key_0:
                 valueWeight(0);
@@ -190,9 +203,10 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
                 if (weight > 0) {
                     weight = 0;
                     textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
-
+                    isStartExercise = false;
                     if (adapterDropsetAndNegative.getCount() > 1) {
                         adapterDropsetAndNegative.setNewWeight(weight);
+                        break;
                     } else if (adapterDropsetAndNegative.getRepetitionsCounts()) {
                         adapterDropsetAndNegative.clearReptitionsCounts();
                     }
@@ -235,6 +249,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
                     adapterDropsetAndNegative.notifyDataSetChanged();
                     isListViewVisible = true;
                 }
+                isStartExercise = false;
             } else {
                 Toast.makeText(this, R.string.warning_message_weight, Toast.LENGTH_SHORT).show();
             }
@@ -247,11 +262,38 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
         if (adapterDropsetAndNegative.getCount() == 10) {
             adapterDropsetAndNegative.setNewWeight(weight);
+            isStartExercise = false;
         }
 
         listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
         isListViewVisible = true;
+
+        if (!isStartExercise) {
+            isStartExercise = true;
+            sendData(new byte[]{0});
+            sendData(new byte[]{(byte) positionItem});
+            int auxWeight = weight;
+
+            while (auxWeight > 127) {
+                sendData(new byte[]{127});
+                auxWeight -= 127;
+            }
+            sendData(new byte[]{(byte) auxWeight});
+            sendData(new byte[]{0});
+        } else {
+            sendData(new byte[]{1});
+        }
     }
+
+
+    private void sendData(byte[] data) {
+
+        Intent intent = new Intent(ConstantsService.SEND_DATA_INTENT);
+        intent.putExtra(ConstantsService.DATA_EXTRA, data);
+        sendBroadcast(intent);
+
+    }
+
 
     private void nextWeight() {
         if (isStart && adapterDropsetAndNegative.getCount() < 10) {
@@ -273,6 +315,26 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     }
 
     @Override
+    public void onBackPressed() {
+
+        if (isStart) {
+            DialogExit dialogExit = new DialogExit();
+            dialogExit.show(getFragmentManager(), null);
+        } else {
+            sendData(new byte[]{3});
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onListenerExit() {
+        sendData(new byte[]{3});
+        sendData(new byte[]{3});
+        finish();
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId())
@@ -289,5 +351,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         super.onDestroy();
         unregisterReceiver(mReceiver);
     }
+
 
 }

@@ -68,5 +68,7 @@
     <string name="device_detaches">Device detached!</string>
     <string name="no_device_found">No device found!</string>
     <string name="found">found!</string>
+    <string name="title_exit">Salir</string>
+    <string name="message_exit">¿Desea salir de Ejercicio?</string>
 
 </resources>

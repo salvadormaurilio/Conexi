@@ -311,7 +311,7 @@
             android:id="@+id/listViewTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/buttonIncreRep"
+            android:layout_alignParentBottom="true"
             android:layout_below="@+id/tableLayoutTitles"
             android:layout_marginBottom="8dp"
             android:choiceMode="singleChoice"
@@ -319,21 +319,21 @@
             android:dividerHeight="0dp" />
 
 
-        <Button
-            android:id="@+id/buttonIncreRep"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/btn_background"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:singleLine="true"
-            android:text="@string/btn_title_incre_rep"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            tools:ignore="ButtonStyle" />
+        <!--<Button-->
+            <!--android:id="@+id/buttonIncreRep"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="@drawable/btn_background"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="16dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:text="@string/btn_title_incre_rep"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="24sp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:visibility="gone"-->
+            <!--tools:ignore="ButtonStyle" />-->
     </RelativeLayout>
 
 

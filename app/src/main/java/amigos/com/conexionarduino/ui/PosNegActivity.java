@@ -18,12 +18,13 @@ import android.widget.Toast;
 
 import amigos.com.conexionarduino.R;
 import amigos.com.conexionarduino.adapters.AdapterNegativePositive;
+import amigos.com.conexionarduino.dialogs.DialogExit;
 import amigos.com.conexionarduino.dialogs.DialogWeight;
 import amigos.com.conexionarduino.util.ConstantsService;
 import amigos.com.conexionarduino.util.PlaceWeightListener;
 
 
-public class PosNegActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener, PlaceWeightListener {
+public class PosNegActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener, PlaceWeightListener, DialogExit.OnListenerExit {
 
     private ListView listViewExcersise;
     private TextView textViewLoadedWeight;
@@ -36,12 +37,15 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     private ListView listViewNegaPosi;
     private AdapterNegativePositive adapterNegativePositive;
 
-    private Button buttonNextWeight;
-    private View buttonIncreRep;
+//    private Button buttonNextWeight;
+//    private Button buttonIncreRep;
 
     private boolean isListViewVisible;
 
     private boolean wasStart;
+
+    private boolean isStartExercise;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +72,11 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         isStart = false;
 
 
-        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
-        buttonNextWeight.setOnClickListener(this);
-
-        buttonIncreRep = findViewById(R.id.buttonIncreRep);
-        buttonIncreRep.setOnClickListener(this);
+//        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
+//        buttonNextWeight.setOnClickListener(this);
+//
+//        buttonIncreRep = findViewById(R.id.buttonIncreRep);
+//        buttonIncreRep.setOnClickListener(this);
 
         listViewNegaPosi = (ListView) findViewById(R.id.listViewTable);
 
@@ -81,6 +85,8 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         listViewNegaPosi.setAdapter(adapterNegativePositive);
 
         isListViewVisible = false;
+
+        isStartExercise = false;
 
         findViewById(R.id.btn_key_0).setOnClickListener(this);
         findViewById(R.id.btn_key_1).setOnClickListener(this);
@@ -110,7 +116,14 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
             final String action = intent.getAction();
             if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
             if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
+
                 final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
+                if (data[0] == 1) {
+                    nextWeight();
+                } else if (data[0] == 2) {
+                    incrementeRep();
+                }
+
             } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
                 Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
                 finish();
@@ -125,7 +138,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
             if (wasStart && positionItem != position) {
                 adapterNegativePositive.setNewWeightInitial(weight);
                 wasStart = false;
-
+                isStartExercise = false;
             }
             positionItem = position;
         } else {
@@ -141,8 +154,8 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
             case R.id.buttonStartEnd:
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
-                    buttonNextWeight.setVisibility(View.GONE);
-                    buttonIncreRep.setVisibility(View.GONE);
+//                    buttonNextWeight.setVisibility(View.GONE);
+//                    buttonIncreRep.setVisibility(View.GONE);
                     adapterNegativePositive.setClickable(true);
                     listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), false);
                     isStart = false;
@@ -150,10 +163,10 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                     if (positionItem != -1) {
                         if (adapterNegativePositive.isFullTable()) {
                             buttonStartEnd.setText(R.string.btn_title_exit);
-                            buttonNextWeight.setVisibility(View.VISIBLE);
-                            buttonIncreRep.setVisibility(View.VISIBLE);
-                            initListDropset();
+//                            buttonNextWeight.setVisibility(View.VISIBLE);
+//                            buttonIncreRep.setVisibility(View.VISIBLE);
                             isStart = true;
+                            initListDropset();
                         } else {
                             Toast.makeText(this, R.string.warning_message_full_table, Toast.LENGTH_SHORT).show();
                         }
@@ -162,12 +175,12 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                     }
                 }
                 break;
-            case R.id.buttonNextWeight:
-                nextWeight();
-                break;
-            case R.id.buttonIncreRep:
-                incrementeRep();
-                break;
+//            case R.id.buttonNextWeight:
+//                nextWeight();
+//                break;
+//            case R.id.buttonIncreRep:
+//                incrementeRep();
+//                break;
 
 
             case R.id.btn_key_0:
@@ -207,10 +220,11 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                     if (adapterNegativePositive.isValuesPlaced()) {
                         adapterNegativePositive.setNewWeightInitial(weight);
                         wasStart = false;
-
                     } else {
                         adapterNegativePositive.changeWeightInitial(weight);
                     }
+                    isStartExercise = false;
+
                 }
                 break;
 
@@ -245,6 +259,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                     adapterNegativePositive.notifyDataSetChanged();
                     isListViewVisible = true;
                 }
+                isStartExercise = false;
             } else {
                 Toast.makeText(this, R.string.warning_message_weight, Toast.LENGTH_SHORT).show();
             }
@@ -258,10 +273,49 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         if (adapterNegativePositive.getPositionItemPositiveNegatives() == 2) {
             adapterNegativePositive.clearItemPosition();
             adapterNegativePositive.clearRepetitionsCounts();
+            isStart = false;
         }
         adapterNegativePositive.setClickable(false);
         listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), true);
         wasStart = true;
+
+        if (!isStartExercise) {
+            isStartExercise = true;
+            sendData(new byte[]{0});
+            sendData(new byte[]{(byte) positionItem});
+
+            for (int i = 0; i < 3; i++) {
+                sendWeight(adapterNegativePositive.getItemPositionWeight(i, 1));
+            }
+
+            for (int i = 0; i < 3; i++) {
+                sendWeight(adapterNegativePositive.getItemPositionWeight(i, 2));
+            }
+
+        } else {
+            sendData(new byte[]{1});
+        }
+
+    }
+
+
+    private void sendWeight(int auxWeight)
+    {
+        while (auxWeight > 127) {
+            sendData(new byte[]{127});
+            auxWeight -= 127;
+        }
+        sendData(new byte[]{(byte) auxWeight});
+        sendData(new byte[]{0});
+    }
+
+
+    private void sendData(byte[] data) {
+
+        Intent intent = new Intent(ConstantsService.SEND_DATA_INTENT);
+        intent.putExtra(ConstantsService.DATA_EXTRA, data);
+        sendBroadcast(intent);
+
     }
 
     public void nextWeight() {
@@ -284,18 +338,6 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onDialogoInputWeight(int minWeight, int maxWeight, boolean isNegative) {
 
         DialogWeight dialogWeight = DialogWeight.newInstance(minWeight, maxWeight, isNegative);
@@ -307,10 +349,40 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         adapterNegativePositive.setWeight(weight);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (isStart) {
+            DialogExit dialogExit = new DialogExit();
+            dialogExit.show(getFragmentManager(), null);
+        } else {
+            sendData(new byte[]{3});
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onListenerExit() {
+        sendData(new byte[]{3});
+        sendData(new byte[]{3});
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mReceiver);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -280,6 +280,15 @@ public class AdapterNegativePositive extends BaseAdapter {
         return isValuesPlaced;
     }
 
+
+    public int getItemPositionWeight(int position, int typeWeight) {
+        if (typeWeight == 1) {
+            return itemPositiveNegatives.get(position).getWeightNegative();
+        } else {
+            return itemPositiveNegatives.get(position).getWeightPositive();
+        }
+    }
+
     @Override
     public int getCount() {
         return itemPositiveNegatives.size();
