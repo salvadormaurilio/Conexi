@@ -97,13 +97,10 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
             if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
             if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
                 final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
-
                 if (data[0] == 2) {
                     incrementeRep();
                 }
-
             } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
-                Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -136,8 +133,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                 } else {
                     if (weight == 0) {
                         Toast.makeText(this, R.string.warning_message_weight_min, Toast.LENGTH_SHORT).show();
-                    }
-                    else if (positionItem != -1) {
+                    } else if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
 //                        buttonIncreRep.setVisibility(View.VISIBLE);
                         initListDropset();
@@ -292,8 +288,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;

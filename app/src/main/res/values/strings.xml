@@ -70,5 +70,6 @@
     <string name="found">found!</string>
     <string name="title_exit">Salir</string>
     <string name="message_exit">¿Desea salir de Ejercicio?</string>
+    <string name="device_found">Device found!</string>
 
 </resources>

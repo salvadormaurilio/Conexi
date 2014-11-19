@@ -66,11 +66,9 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
 
         textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
 
-
         buttonStartEnd = (Button) findViewById(R.id.buttonStartEnd);
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
-
 
 //        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
 //        buttonNextWeight.setOnClickListener(this);
@@ -125,7 +123,6 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
                 }
 
             } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
-                Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -297,7 +294,6 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         }
 
     }
-
 
     private void sendWeight(int auxWeight)
     {

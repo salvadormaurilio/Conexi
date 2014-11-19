@@ -42,6 +42,11 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
     private boolean isStartExercise;
 
+    private boolean isReceivingWeight;
+
+    private int newWeight;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +81,9 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         listViewDropset.setAdapter(adapterDropsetAndNegative);
 
         isListViewVisible = false;
-
         isStartExercise = false;
+        isReceivingWeight = false;
+        newWeight = 0;
 
         findViewById(R.id.btn_key_0).setOnClickListener(this);
         findViewById(R.id.btn_key_1).setOnClickListener(this);
@@ -109,14 +115,21 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
             if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
                 final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
 
-                if (data[0] == 1) {
-                    nextWeight();
+                if (isReceivingWeight) {
+                    if (data[0] != 0) {
+                        newWeight += data[0];
+                    } else {
+                        isReceivingWeight = false;
+                        nextWeight(newWeight);
+                        newWeight = 0;
+                    }
+                } else if (data[0] == 1) {
+                    isReceivingWeight = true;
                 } else if (data[0] == 2) {
                     incrementeRep();
                 }
 
             } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
-                Toast.makeText(context, getString(R.string.device_detaches), Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -295,10 +308,9 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     }
 
 
-    private void nextWeight() {
+    private void nextWeight(int weight) {
         if (isStart && adapterDropsetAndNegative.getCount() < 10) {
-            double multiplo = (10 - adapterDropsetAndNegative.getCount()) / 10.0;
-            adapterDropsetAndNegative.addItemDropset((int) (weight * multiplo));
+            adapterDropsetAndNegative.addItemDropset(weight);
             listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
         }
 
