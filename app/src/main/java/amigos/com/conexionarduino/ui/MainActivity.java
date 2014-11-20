@@ -133,22 +133,34 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         if (isConnectedArduino) {
             Intent intent = null;
-
+            byte data[] = new byte[1];
             switch (v.getId()) {
                 case R.id.buttonDropset:
+                    data[1] = 1;
                     intent = new Intent(this, DropsetActivity.class);
                     break;
                 case R.id.buttonPosNeg:
+                    data[1] = 2;
                     intent = new Intent(this, PosNegActivity.class);
                     break;
                 case R.id.buttonNegative:
+                    data[1] = 3;
                     intent = new Intent(this, NegativeActivity.class);
                     break;
             }
+            sendData(data);
             startActivity(intent);
         } else {
             Toast.makeText(getBaseContext(), getString(R.string.no_device_found), Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void sendData(byte[] data) {
+
+        Intent intent = new Intent(ConstantsService.SEND_DATA_INTENT);
+        intent.putExtra(ConstantsService.DATA_EXTRA, data);
+        sendBroadcast(intent);
 
     }
 
