@@ -97,12 +97,12 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         findViewById(R.id.btn_key_9).setOnClickListener(this);
         findViewById(R.id.btn_key_clear).setOnClickListener(this);
 
+
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConstantsService.DATA_RECEIVED_INTENT);
         filter.addAction(ConstantsService.DATA_SENT_INTERNAL_INTENT);
         filter.addAction(ConstantsService.USB_DEVICE_DETACHED);
         registerReceiver(mReceiver, filter);
-
 
     }
 
@@ -114,9 +114,8 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
             if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
             if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
                 final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
-
                 if (isReceivingWeight) {
-                    if (data[0] != 0) {
+                    if (data[0] != -1) {
                         newWeight += data[0];
                     } else {
                         isReceivingWeight = false;
@@ -334,18 +333,21 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
             DialogExit dialogExit = new DialogExit();
             dialogExit.show(getFragmentManager(), null);
         } else {
-            sendData(new byte[]{3});
             super.onBackPressed();
         }
     }
 
     @Override
     public void onListenerExit() {
-        sendData(new byte[]{3});
+        isStart = false;
         sendData(new byte[]{3});
         finish();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -362,6 +364,10 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (isStart) {
+            sendData(new byte[]{3});
+        }
+        sendData(new byte[]{3});
         unregisterReceiver(mReceiver);
     }
 

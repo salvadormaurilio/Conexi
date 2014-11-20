@@ -353,22 +353,15 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
             DialogExit dialogExit = new DialogExit();
             dialogExit.show(getFragmentManager(), null);
         } else {
-            sendData(new byte[]{3});
             super.onBackPressed();
         }
     }
 
     @Override
     public void onListenerExit() {
-        sendData(new byte[]{3});
+        isStart = false;
         sendData(new byte[]{3});
         finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -382,4 +375,16 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isStart) {
+            sendData(new byte[]{3});
+        }
+        sendData(new byte[]{3});
+        unregisterReceiver(mReceiver);
+    }
+
+
 }

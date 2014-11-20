@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" >
@@ -25,16 +26,19 @@
         </activity>
         <activity
             android:name=".ui.DropsetActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_dropset"
             android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".ui.PosNegActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_pos_neg"
             android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".ui.NegativeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_negative"
             android:screenOrientation="landscape">
         </activity>

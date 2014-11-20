@@ -24,10 +24,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private boolean isConnectedArduino = false;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d("Entro", "On Create");
 
         findViewById(R.id.buttonDropset).setOnClickListener(this);
         findViewById(R.id.buttonPosNeg).setOnClickListener(this);
@@ -136,15 +139,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
             byte data[] = new byte[1];
             switch (v.getId()) {
                 case R.id.buttonDropset:
-                    data[1] = 1;
+                    data[0] = 1;
                     intent = new Intent(this, DropsetActivity.class);
                     break;
                 case R.id.buttonPosNeg:
-                    data[1] = 2;
+                    data[0] = 2;
                     intent = new Intent(this, PosNegActivity.class);
                     break;
                 case R.id.buttonNegative:
-                    data[1] = 3;
+                    data[0] = 3;
                     intent = new Intent(this, NegativeActivity.class);
                     break;
             }

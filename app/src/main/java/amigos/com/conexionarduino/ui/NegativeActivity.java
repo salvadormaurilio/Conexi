@@ -273,14 +273,14 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
             DialogExit dialogExit = new DialogExit();
             dialogExit.show(getFragmentManager(), null);
         } else {
-            sendData(new byte[]{3});
             super.onBackPressed();
         }
     }
 
+
     @Override
     public void onListenerExit() {
-        sendData(new byte[]{3});
+        isStart = false;
         sendData(new byte[]{3});
         finish();
     }
@@ -302,7 +302,10 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (isStart) {
+            sendData(new byte[]{3});
+        }
+        sendData(new byte[]{3});
         unregisterReceiver(mReceiver);
     }
-
 }
