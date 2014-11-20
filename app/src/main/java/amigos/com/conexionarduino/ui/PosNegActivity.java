@@ -271,7 +271,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         if (adapterNegativePositive.getPositionItemPositiveNegatives() == 2) {
             adapterNegativePositive.clearItemPosition();
             adapterNegativePositive.clearRepetitionsCounts();
-            isStart = false;
+            isStartExercise = false;
         }
         adapterNegativePositive.setClickable(false);
         listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), true);
