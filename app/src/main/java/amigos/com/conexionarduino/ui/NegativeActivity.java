@@ -129,6 +129,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                     buttonStartEnd.setText(R.string.btn_title_start);
 //                    buttonIncreRep.setVisibility(View.GONE);
                     listViewNegative.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
+                    sendData(new byte[]{3});
                     isStart = false;
                 } else {
                     if (weight == 0) {

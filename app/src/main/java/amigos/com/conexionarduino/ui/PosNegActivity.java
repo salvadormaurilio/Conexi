@@ -155,6 +155,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
 //                    buttonIncreRep.setVisibility(View.GONE);
                     adapterNegativePositive.setClickable(true);
                     listViewNegaPosi.setItemChecked(adapterNegativePositive.getPositionItemPositiveNegatives(), false);
+                    sendData(new byte[]{3});
                     isStart = false;
                 } else {
                     if (positionItem != -1) {

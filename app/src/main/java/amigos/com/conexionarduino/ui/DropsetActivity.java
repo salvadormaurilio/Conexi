@@ -162,6 +162,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 //                    buttonNextWeight.setVisibility(View.GONE);
 //                    buttonIncreRep.setVisibility(View.GONE);
                     listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
+                    sendData(new byte[]{3});
                     isStart = false;
                 } else {
                     if (weight == 0) {
