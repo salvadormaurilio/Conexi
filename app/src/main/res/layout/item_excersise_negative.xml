@@ -3,13 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="*"
-    android:background="@drawable/select_item_negative">
+    android:background="@drawable/select_item_negative"
+    android:stretchColumns="*">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/textViewNumWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_item_table"
+            android:gravity="center"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:text="1st Weight"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewWeight"

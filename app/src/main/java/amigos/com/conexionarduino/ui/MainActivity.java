@@ -30,8 +30,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("Entro", "On Create");
-
         findViewById(R.id.buttonDropset).setOnClickListener(this);
         findViewById(R.id.buttonPosNeg).setOnClickListener(this);
         findViewById(R.id.buttonNegative).setOnClickListener(this);
@@ -134,6 +132,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        isConnectedArduino = true;
         if (isConnectedArduino) {
             Intent intent = null;
             byte data[] = new byte[1];

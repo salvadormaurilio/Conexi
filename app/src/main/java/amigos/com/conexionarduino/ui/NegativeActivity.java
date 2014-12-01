@@ -35,9 +35,15 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     private ListView listViewNegative;
     private AdapterDropsetAndNegative adapterDropsetAndNegative;
 
-//    private Button buttonIncreRep;
 
     private boolean isListViewVisible;
+
+    private boolean isStartExercise;
+
+    private boolean isReceivingWeight;
+
+    private int newWeight;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +67,15 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
 
-//        buttonIncreRep = findViewById(R.id.buttonIncreRep);
-//        buttonIncreRep.setOnClickListener(this);
-
         listViewNegative = (ListView) findViewById(R.id.listViewTable);
-        adapterDropsetAndNegative = new AdapterDropsetAndNegative(this, 2);
+
+        adapterDropsetAndNegative = new AdapterDropsetAndNegative(this, 1);
         listViewNegative.setAdapter(adapterDropsetAndNegative);
 
         isListViewVisible = false;
+        isStartExercise = false;
+        isReceivingWeight = false;
+        newWeight = 0;
 
         findViewById(R.id.btn_key_0).setOnClickListener(this);
         findViewById(R.id.btn_key_1).setOnClickListener(this);
@@ -82,6 +89,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         findViewById(R.id.btn_key_9).setOnClickListener(this);
         findViewById(R.id.btn_key_clear).setOnClickListener(this);
 
+
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConstantsService.DATA_RECEIVED_INTENT);
         filter.addAction(ConstantsService.DATA_SENT_INTERNAL_INTENT);
@@ -91,27 +99,41 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (ConstantsService.DEBUG) Log.d(ConstantsService.TAG, "onReceive() " + action);
             if (ConstantsService.DATA_RECEIVED_INTENT.equals(action)) {
                 final byte[] data = intent.getByteArrayExtra(ConstantsService.DATA_EXTRA);
-                if (data[0] == 2) {
+                if (isReceivingWeight) {
+                    if (data[0] != -1) {
+                        newWeight += data[0];
+                    } else {
+                        isReceivingWeight = false;
+                        nextWeight(newWeight);
+                        newWeight = 0;
+                    }
+                } else if (data[0] == 1) {
+                    isReceivingWeight = true;
+                } else if (data[0] == 2) {
                     incrementeRep();
                 }
+
             } else if (ConstantsService.USB_DEVICE_DETACHED.equals(action)) {
                 finish();
             }
         }
+
     };
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         if (!isStart) {
-            if (adapterDropsetAndNegative.getRepetitionsCounts() && positionItem != position) {
-                adapterDropsetAndNegative.clearReptitionsCounts();
+            if ((adapterDropsetAndNegative.getCount() > 0 || adapterDropsetAndNegative.getRepetitionsCounts()) && positionItem != position) {
+                adapterDropsetAndNegative.setNewWeight(weight);
+                isStartExercise = false;
             }
             positionItem = position;
         } else {
@@ -123,11 +145,11 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     @Override
     public void onClick(View v) {
 
+
         switch (v.getId()) {
             case R.id.buttonStartEnd:
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
-//                    buttonIncreRep.setVisibility(View.GONE);
                     listViewNegative.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
                     sendData(new byte[]{3});
                     isStart = false;
@@ -136,18 +158,13 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                         Toast.makeText(this, R.string.warning_message_weight_min, Toast.LENGTH_SHORT).show();
                     } else if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
-//                        buttonIncreRep.setVisibility(View.VISIBLE);
-                        initListDropset();
                         isStart = true;
+                        initListDropset();
                     } else {
                         Toast.makeText(this, R.string.select_exercise, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
-//            case R.id.buttonIncreRep:
-//                incrementeRep();
-//                break;
-
             case R.id.btn_key_0:
                 valueWeight(0);
                 break;
@@ -182,7 +199,11 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                 if (weight > 0) {
                     weight = 0;
                     textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
-                    if (adapterDropsetAndNegative.getRepetitionsCounts()) {
+                    isStartExercise = false;
+                    if (adapterDropsetAndNegative.getCount() > 1) {
+                        adapterDropsetAndNegative.setNewWeight(weight);
+                        break;
+                    } else if (adapterDropsetAndNegative.getRepetitionsCounts()) {
                         adapterDropsetAndNegative.clearReptitionsCounts();
                     }
                     adapterDropsetAndNegative.changeWeight(weight);
@@ -196,7 +217,9 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     public void valueWeight(int num) {
 
         if (!isStart) {
+
             int weightAux;
+
             if (weight > 0) {
                 weightAux = (weight * 10) + num;
             } else {
@@ -210,7 +233,9 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
                 weight = weightAux;
                 textViewLoadedWeight.setText(getString(R.string.title_loaded_weight) + " " + weight + lb);
-                if (isListViewVisible) {
+                if (adapterDropsetAndNegative.getCount() > 1) {
+                    adapterDropsetAndNegative.setNewWeight(weight);
+                } else if (isListViewVisible) {
                     adapterDropsetAndNegative.changeWeight(weight);
                     if (adapterDropsetAndNegative.getRepetitionsCounts()) {
                         adapterDropsetAndNegative.clearReptitionsCounts();
@@ -220,6 +245,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
                     adapterDropsetAndNegative.notifyDataSetChanged();
                     isListViewVisible = true;
                 }
+                isStartExercise = false;
             } else {
                 Toast.makeText(this, R.string.warning_message_weight, Toast.LENGTH_SHORT).show();
             }
@@ -228,24 +254,30 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
     }
 
     private void initListDropset() {
-        if (adapterDropsetAndNegative.getRepetitionsCounts()) {
-            adapterDropsetAndNegative.clearReptitionsCounts();
 
+        if (adapterDropsetAndNegative.getCount() == 10) {
+            adapterDropsetAndNegative.setNewWeight(weight);
+            isStartExercise = false;
         }
+
         listViewNegative.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
         isListViewVisible = true;
 
-        sendData(new byte[]{0});
-        sendData(new byte[]{(byte) positionItem});
-        int auxWeight = weight;
+        if (!isStartExercise) {
+            isStartExercise = true;
+            sendData(new byte[]{0});
+            sendData(new byte[]{(byte) positionItem});
+            int auxWeight = weight;
 
-        while (auxWeight > 127) {
-            sendData(new byte[]{127});
-            auxWeight -= 127;
+            while (auxWeight > 127) {
+                sendData(new byte[]{127});
+                auxWeight -= 127;
+            }
+            sendData(new byte[]{(byte) auxWeight});
+            sendData(new byte[]{0});
+        } else {
+            sendData(new byte[]{1});
         }
-        sendData(new byte[]{(byte) auxWeight});
-        sendData(new byte[]{0});
-
     }
 
     private void sendData(byte[] data) {
@@ -256,7 +288,15 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
 
     }
 
-    public void incrementeRep() {
+    private void nextWeight(int weight) {
+        if (isStart && adapterDropsetAndNegative.getCount() < 4) {
+            adapterDropsetAndNegative.addItemDropset(weight);
+            listViewNegative.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
+        }
+
+    }
+
+    private void incrementeRep() {
 
         if (listViewNegative.getLastVisiblePosition() == adapterDropsetAndNegative.getCount() - 1) {
             adapterDropsetAndNegative.incrementRepetitions();
@@ -265,6 +305,7 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
         }
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -276,7 +317,6 @@ public class NegativeActivity extends Activity implements AdapterView.OnItemClic
             super.onBackPressed();
         }
     }
-
 
     @Override
     public void onListenerExit() {

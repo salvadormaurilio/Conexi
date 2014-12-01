@@ -35,8 +35,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
     private ListView listViewDropset;
     private AdapterDropsetAndNegative adapterDropsetAndNegative;
 
-//    private Button buttonNextWeight;
-//    private Button buttonIncreRep;
 
     private boolean isListViewVisible;
 
@@ -68,12 +66,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         buttonStartEnd = (Button) findViewById(R.id.buttonStartEnd);
         buttonStartEnd.setOnClickListener(this);
         isStart = false;
-
-//        buttonNextWeight = (Button) findViewById(R.id.buttonNextWeight);
-//        buttonNextWeight.setOnClickListener(this);
-//
-//        buttonIncreRep = findViewById(R.id.buttonIncreRep);
-//        buttonIncreRep.setOnClickListener(this);
 
         listViewDropset = (ListView) findViewById(R.id.listViewTable);
 
@@ -135,7 +127,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
     };
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -158,8 +149,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
             case R.id.buttonStartEnd:
                 if (isStart) {
                     buttonStartEnd.setText(R.string.btn_title_start);
-//                    buttonNextWeight.setVisibility(View.GONE);
-//                    buttonIncreRep.setVisibility(View.GONE);
                     listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, false);
                     sendData(new byte[]{3});
                     isStart = false;
@@ -168,8 +157,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
                         Toast.makeText(this, R.string.warning_message_weight_min, Toast.LENGTH_SHORT).show();
                     } else if (positionItem != -1) {
                         buttonStartEnd.setText(R.string.btn_title_exit);
-//                        buttonNextWeight.setVisibility(View.VISIBLE);
-//                        buttonIncreRep.setVisibility(View.VISIBLE);
                         isStart = true;
                         initListDropset();
                     } else {
@@ -177,11 +164,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
                     }
                 }
                 break;
-//            case R.id.buttonNextWeight:
-//                break;
-//            case R.id.buttonIncreRep:
-//                break;
-
             case R.id.btn_key_0:
                 valueWeight(0);
                 break;
@@ -309,7 +291,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
 
 
     private void nextWeight(int weight) {
-        if (isStart && adapterDropsetAndNegative.getCount() < 10) {
+        if (isStart && adapterDropsetAndNegative.getCount() < 5) {
             adapterDropsetAndNegative.addItemDropset(weight);
             listViewDropset.setItemChecked(adapterDropsetAndNegative.getCount() - 1, true);
         }
@@ -344,10 +326,6 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         finish();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

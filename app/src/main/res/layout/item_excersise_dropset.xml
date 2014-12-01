@@ -6,10 +6,10 @@
     android:background="@drawable/select_item_dropset"
     android:stretchColumns="*">
 
-<TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="UselessParent">
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textViewNumWeight"
