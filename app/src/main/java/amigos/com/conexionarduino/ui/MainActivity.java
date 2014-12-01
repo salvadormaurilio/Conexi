@@ -132,7 +132,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        isConnectedArduino = true;
         if (isConnectedArduino) {
             Intent intent = null;
             byte data[] = new byte[1];
