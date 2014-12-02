@@ -316,13 +316,26 @@
             android:id="@+id/listViewTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@+id/buttonNextSet"
             android:layout_below="@+id/tableLayoutTitles"
             android:layout_marginBottom="8dp"
             android:choiceMode="singleChoice"
             android:divider="@android:color/white"
             android:dividerHeight="0dp" />
 
+
+        <Button
+            android:id="@+id/buttonNextSet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_background"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:text="@string/btn_title_next_set"
+            android:textColor="@android:color/black"
+            android:textSize="28sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 

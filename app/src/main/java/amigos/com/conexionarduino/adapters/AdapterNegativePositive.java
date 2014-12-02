@@ -80,7 +80,7 @@ public class AdapterNegativePositive extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View container = convertView;
-        ViewHolderDropset viewHolderDropset = null;
+        ViewHolderDropset viewHolderDropset;
 
         if (container == null) {
             container = inflater.inflate(R.layout.item_excersise_posi_nega, parent, false);
@@ -104,8 +104,6 @@ public class AdapterNegativePositive extends BaseAdapter {
             }
         } else {
             isFullTable = false;
-
-
             viewHolderDropset.getTextViewNegativeWeight().setText(placeWeight);
         }
 
@@ -212,32 +210,21 @@ public class AdapterNegativePositive extends BaseAdapter {
     public void setNewWeightInitial(int weight) {
         itemPositiveNegatives.get(0).setWeightNegative(weight);
         itemPositiveNegatives.get(0).setWeightPositive(-1);
-        itemPositiveNegatives.get(0).initilizeRepetitionsCounts();
         itemPositiveNegatives.get(1).setWeightNegative(-1);
         itemPositiveNegatives.get(1).setWeightPositive(-1);
-        itemPositiveNegatives.get(1).initilizeRepetitionsCounts();
         itemPositiveNegatives.get(2).setWeightNegative(-1);
         itemPositiveNegatives.get(2).setWeightPositive(-1);
-        itemPositiveNegatives.get(2).initilizeRepetitionsCounts();
         isFullTable = true;
         isValuesPlaced = false;
         positionItemPositiveNegatives = 0;
         notifyDataSetChanged();
     }
 
-    public void clearRepetitionsCounts() {
-        itemPositiveNegatives.get(0).initilizeRepetitionsCounts();
-        itemPositiveNegatives.get(1).initilizeRepetitionsCounts();
-        itemPositiveNegatives.get(2).initilizeRepetitionsCounts();
-    }
 
     public void incrementItemPosition() {
         positionItemPositiveNegatives++;
     }
 
-    public void clearItemPosition() {
-        positionItemPositiveNegatives = 0;
-    }
 
     public int getPositionItemPositiveNegatives() {
         return positionItemPositiveNegatives;

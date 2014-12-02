@@ -48,7 +48,7 @@
     <string name="warning_message_weight">Coloque un peso menor o igual a 720 lb</string>
     <string name="warning_message_weight_max_dia">Coloque un peso menor o igual a </string>
     <string name="warning_message_weight_min_dia">Coloque un peso mayor o igual a </string>
-    <string name="warning_message_weight_min">Coloque un peso un peso mayor a 0</string>
+    <string name="warning_message_weight_min">Coloque un peso un peso mayor a 10</string>
     <string name="warning_message_weight_min_pos">Coloque un peso mayor o igual a 2 lb</string>
     <string name="warning_message_weight_min_neg">Coloque un peso negativo en la celda anterior mayor o igual a 2 lb</string>
     <string name="title_loaded_max_weight_dia">Max. Allowable Weight</string>
@@ -71,5 +71,6 @@
     <string name="title_exit">Salir</string>
     <string name="message_exit">¿Desea salir de Ejercicio?</string>
     <string name="device_found">Device found!</string>
+    <string name="btn_title_next_set">Nex Set</string>
 
 </resources>

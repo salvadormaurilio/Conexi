@@ -23,8 +23,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private boolean isConnectedArduino = false;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +129,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+//        isConnectedArduino = true;
         if (isConnectedArduino) {
             Intent intent = null;
             byte data[] = new byte[1];

@@ -47,7 +47,7 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View container = convertView;
-        ViewHolderDropset viewHolderDropset = null;
+        ViewHolderDropset viewHolderDropset;
 
         if (container == null) {
             if (typeItem == 1) {
@@ -107,24 +107,6 @@ public class AdapterDropsetAndNegative extends BaseAdapter {
     public void changeWeightInvisible(int weight) {
         itemDropsets.get(0).setWeight(weight);
     }
-
-    public void setNewWeight(int weight) {
-        itemDropsets.clear();
-        itemDropsets.add(new ItemDropset(weight));
-        notifyDataSetChanged();
-    }
-
-
-    public boolean getRepetitionsCounts() {
-        return itemDropsets.get(0).getRepetitionsCounts() > 0;
-
-    }
-
-    public void clearReptitionsCounts(){
-        itemDropsets.get(0).initilizeRepetitionsCounts();
-        textViewRepetition.setText(itemDropsets.get(itemDropsets.size() - 1).getRepetitionsCounts() + repetition);
-    }
-
 
     @Override
     public int getCount() {
