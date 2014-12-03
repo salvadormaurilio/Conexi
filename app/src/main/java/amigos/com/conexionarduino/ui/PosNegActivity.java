@@ -127,7 +127,7 @@ public class PosNegActivity extends Activity implements AdapterView.OnItemClickL
         if (!isStart) {
             if (positionItem != position) {
                 positionItem = position;
-                sendData(new byte[]{(byte) positionItem});
+                sendData(new byte[]{(byte) (positionItem + 1)});
             }
         } else {
             listViewExcersise.setItemChecked(positionItem, true);

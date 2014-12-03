@@ -155,6 +155,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
+
     private void sendData(byte[] data) {
 
         Intent intent = new Intent(ConstantsService.SEND_DATA_INTENT);

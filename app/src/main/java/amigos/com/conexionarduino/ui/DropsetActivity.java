@@ -136,7 +136,7 @@ public class DropsetActivity extends Activity implements AdapterView.OnItemClick
         if (!isStart && !enableNextSet) {
             if (positionItem != position) {
                 positionItem = position;
-                sendData(new byte[]{(byte) positionItem});
+                sendData(new byte[]{(byte) (positionItem + 1)});
             }
         } else {
             listViewExcersise.setItemChecked(positionItem, true);
